@@ -48,3 +48,9 @@ gem 'rspotify'
 
 # Store environment variables in .env file
 gem 'dotenv-rails', :groups => [:development, :test]
+
+# User management
+gem 'devise'
+
+# Admin interface
+gem 'activeadmin', github: 'activeadmin'

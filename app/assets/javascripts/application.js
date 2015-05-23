@@ -13,4 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require before.load
+//= require jquery-migrate-1.2.1.min
+//= require bootstrap.min
+//= require smoothscroll
+//= require bootstrap-select.min
+//= require jquery.hotkeys
+//= require jquery.nouislider.all.min
+//= require jquery.mCustomScrollbar.concat.min
+//= require infobox
+//= require richmarker-compiled
+//= require markerclusterer
+//= require custom
+//= require maps

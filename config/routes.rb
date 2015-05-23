@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'externals/navigation'
   get 'externals/searchbar'
   root 'pages#index'
+  get 'navigation' => 'externals#navigation', as: :navigation
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

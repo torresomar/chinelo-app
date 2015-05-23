@@ -45,3 +45,6 @@ end
 
 # Spotify web-api client
 gem 'rspotify'
+
+# Store environment variables in .env file
+gem 'dotenv-rails', :groups => [:development, :test]

@@ -13,7 +13,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
-var Greeter = require('./components/venue-songifier');
-Greeter.sayHello('Visitor');
-Greeter.sayGoodbye('Visitor');
+var React = require('react');
+var Routes = {
+    '': function() {
+        var Landing = require('./components/venue_songifier');
+        React.render(
+                React.createElement(Landing),
+                document.getElementById('landing-container')
+            );
+    }
+}
+$(document).on('ready', function(){
+    var base_path = document.location.pathname.split("/")[1].toString();
+    Routes[base_path]();
+});

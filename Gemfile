@@ -57,3 +57,6 @@ gem 'activeadmin', github: 'activeadmin'
 
 # Use postgres for production
 gem 'pg', group: :production
+
+# Heroku integration
+gem 'rails_12factor', group: :production

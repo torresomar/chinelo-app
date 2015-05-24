@@ -21,7 +21,7 @@ var SidebarBase = {
         isLeft = this.isLeft();
         return {
             boxShadow: (isLeft ? '' : '-') + '2px 0 7px rgba(3, 0, 3, 0.2)',
-            backgroundColor: '#FFFFFF',
+            backgroundColor: '#EAEAEA',
             zIndex: 1050,
             width: props.width,
             height: '100%',

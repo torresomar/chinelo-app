@@ -1,7 +1,19 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# Populate the database
+# with the songs of the specified artist
+
+# ID for the target Artist
+ARTIST_ID = '2DmYtFBKcxb3ajwWWgA576' # Emmanuel
+
+RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'],
+                      ENV['SPOTIFY_CLIENT_SECRET'])
+
+artist = RSpotify::Artist.find(ARTIST_ID)
+
+tracks = artist.albums.flat_map(&:tracks).uniq(&:name)
+
+tracks.each do |track|
+  Song.create(sid:     track.id,
+              uri:    track.uri,
+              artist: ARTIST_ID,
+              name:   track.name)
+end

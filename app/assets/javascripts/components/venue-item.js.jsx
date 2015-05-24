@@ -1,21 +1,31 @@
 var React = require('react');
 
 var VenueItem = React.createClass({
+    getDefaultProps: function(){
+        return {
+            image: "",
+            name: "",
+            price: "",
+            lat: 1,
+            lng: 1,
+            address: ""
+        }
+    },
     render: function(){
         return(
             <li>
                 <div className="item" id="1">
                     <a href="#" className="image loaded">
                         <div className="inner">
-                            <img src={IMAGES['metropolitan']} className="mCS_img_loaded" style={{width:'100%',height:'100%'}}/>
+                            <img src={this.props.image} className="mCS_img_loaded" style={{width:'100%',height:'100%'}}/>
                         </div>
                     </a>
                     <div className="wrapper">
                         <a href="#" id="1">
-                            <h3>Steak House Restaurant</h3>
+                            <h3>{this.props.name}</h3>
                         </a>
-                        <figure>63 Birch Street</figure>
-                        <div className="price">$2500</div>
+                        <figure>{this.props.address}</figure>
+                        <div className="price">${this.props.price}</div>
                         <div className="info">
                             <div className="type">
                                 <i><img src={IMAGES['umbrella']} className="mCS_img_loaded"/>2</i>

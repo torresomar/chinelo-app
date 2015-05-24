@@ -60,3 +60,6 @@ gem 'pg', group: :production
 
 # Heroku integration
 gem 'rails_12factor', group: :production
+
+# Use puma as a web server
+gem 'puma'

@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  get 'externals/modal'
   get 'externals/modal_multichoice'
   get 'externals/navigation'
   get 'externals/searchbar'
   root 'pages#index'
   get 'navigation' => 'externals#navigation', as: :navigation
+  get 'modal' => 'externals#modal', as: :modal
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

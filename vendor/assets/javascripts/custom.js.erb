@@ -7,6 +7,7 @@ $(document).ready(function($) {
     "use strict";
 
     if( $('body').hasClass('navigation-fixed') ){
+        debug;
         $('.off-canvas-navigation').css( 'top', - $('.header').height() );
         $('#page-canvas').css( 'margin-top',$('.header').height() );
     }
@@ -405,7 +406,7 @@ function rating(element){
 // Owl Carousel in Modal Window ----------------------------------------------------------------------------------------
 
 function drawOwlCarousel(_rtl){
-    $.getScript( "<%= asset_path('owl.carousel.min.js') %>", function( data, textStatus, jqxhr ) {
+    $.getScript( JS_PATHS['owl'], function( data, textStatus, jqxhr ) {
         $(".image .gallery").owlCarousel({
             rtl: _rtl,
             items: 1,
@@ -456,7 +457,7 @@ function equalHeight(container){
 // Initialize Owl carousel ---------------------------------------------------------------------------------------------
 
 function initializeOwl(_rtl){
-    $.getScript( "<%= asset_path('owl.carousel.min.js') %>" , function( data, textStatus, jqxhr ) {
+    $.getScript( JS_PATHS['owl'], function( data, textStatus, jqxhr ) {
         if ($('.owl-carousel').length > 0) {
             if ($('.carousel-full-width').length > 0) {
                 setCarouselWidth();
@@ -516,16 +517,16 @@ function drawItemSpecific(category, json, a){
         if( category == 'real_estate' ){
             if( json.data[a].item_specific ){
                 if( json.data[a].item_specific.bedrooms ){
-                    itemSpecific += '<span title="Bedrooms"><img src="assets/img/bedrooms.png">' + json.data[a].item_specific.bedrooms + '</span>';
+                    itemSpecific += '<span title="Bedrooms"><img src="<%= asset_path('bedrooms.png')  %>">' + json.data[a].item_specific.bedrooms + '</span>';
                 }
                 if( json.data[a].item_specific.bathrooms ){
-                    itemSpecific += '<span title="Bathrooms"><img src="assets/img/bathrooms.png">' + json.data[a].item_specific.bathrooms + '</span>';
+                    itemSpecific += '<span title="Bathrooms"><img src="<%= asset_path('bathrooms.png')  %>">' + json.data[a].item_specific.bathrooms + '</span>';
                 }
                 if( json.data[a].item_specific.area ){
-                    itemSpecific += '<span title="Area"><img src="assets/img/area.png">' + json.data[a].item_specific.area + '<sup>2</sup></span>';
+                    itemSpecific += '<span title="Area"><img src="<%= asset_path('area.png')  %>">' + json.data[a].item_specific.area + '<sup>2</sup></span>';
                 }
                 if( json.data[a].item_specific.garages ){
-                    itemSpecific += '<span title="Garages"><img src="assets/img/garages.png">' + json.data[a].item_specific.garages + '</span>';
+                    itemSpecific += '<span title="Garages"><img src="<%= asset_path('assets/img/garages.png')  %>">' + json.data[a].item_specific.garages + '</span>';
                 }
                 return itemSpecific;
             }
@@ -550,12 +551,26 @@ function drawItemSpecific(category, json, a){
 
 function quickView(id){
     $.ajax({
-        type: 'POST',
-        url: 'assets/external/_modal.html',
+        type: 'GET',
+        url: 'modal',
         data: id,
         success: function (data) {
+            console.log("Hey modal");
             // Create HTML element with loaded data
             $('body').append(data);
+
+            // Render Rating stars
+
+            rating('.modal-window');
+
+            // Remove modal element form DOM
+
+            $('.modal-window .modal-background, .modal-close').live('click',  function(e){
+                $('.modal-window').addClass('fade_out');
+                setTimeout(function() {
+                  $('.modal-window').remove();
+                  }, 300);
+                });
         }
     });
 }

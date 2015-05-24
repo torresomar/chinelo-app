@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>ChineloApp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -9,7 +10,7 @@
 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <%= csrf_meta_tags %>
 </head>
-<body class="map-fullscreen page-homepage navigation-off-canvas" id="page-top">
+<body class="map-fullscreen navigation-off-canvas" id="page-top">
   <%= yield %>
 </body>
 </html>

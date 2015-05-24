@@ -6,22 +6,12 @@ var mapStyles = [ {"featureType":"road","elementType":"labels","stylers":[{"visi
 // Set map height to 100% ----------------------------------------------------------------------------------------------
 
 var $body = $('body');
-if( $body.hasClass('map-fullscreen') ) {
-    if( $(window).width() > 768 ) {
-
-        $('.map-canvas').height( $(window).height() - $('.header').height() );
-    }
-    else {
-        $('.map-canvas #map').height( $(window).height() - $('.header').height() );
-    }
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Homepage map - Google
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createHomepageGoogleMap(_latitude,_longitude,json){
-    $.get("assets/external/_infobox.js", function() {
+    $.get(JS_PATHS['infobox'], function() {
         gMap();
     });
     function gMap(){
@@ -342,7 +332,7 @@ function createHomepageGoogleMap(_latitude,_longitude,json){
 
 function createHomepageOSM(_latitude,_longitude,json,mapProvider){
 
-    $.get("assets/external/_infobox.js", function() {
+    $.get(JS_PATHS['infobox'], function() {
         osmMap();
     });
 
@@ -685,6 +675,7 @@ function animateOSMMarkers(map, loadedMarkers, json){
 // Redraw map after item list is closed --------------------------------------------------------------------------------
 
 function redrawMap(mapProvider, map){
+  console.log("Map Redraw");
     $('.map .toggle-navigation').click(function() {
         $('.map-canvas').toggleClass('results-collapsed');
         $('.map-canvas .map').one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){

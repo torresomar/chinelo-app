@@ -15,6 +15,9 @@
 //= require turbolinks
 //= require utilities/images
 //= require jquery.mCustomScrollbar.concat.min
+//= require infobox
+//= require richmarker-compiled.js
+//= require markerclusterer.js
 var React = require('react');
 var Routes = {
     '': function() {

@@ -62,13 +62,13 @@ var GoogleMap = React.createClass({
             props.zoomTop = 0;
             props.zoomRight = 0;
         }
-
-        // zoomControls = new MapUtils.ZoomControl(zoomDiv, this.mapRef, props.zoomLeft, props.zoomTop, props.zoomRight);
-        // zoomDiv.index = 1;
+        google.maps.event.addListener(this.mapRef, 'idle', function() {
+        });
 
         // Add event listener
         if (_.isFunction(props.onLocationChange)) {
             addListener('idle', function() {
+                console.log("----");
                 var center = this.mapRef.getCenter(),
                     zoom = this.mapRef.getZoom();
                 props.onLocationChange({
@@ -78,14 +78,9 @@ var GoogleMap = React.createClass({
                 });
             }.bind(this));
         }
-        var _this = this;
-
-        this.mapRef.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomDiv);
-
-        // Add event listeners
         function locationChange() {
-            var center = this.mapRef.getCenter(),
-                zoom = this.mapRef.getZoom();
+            var center = this.mapRef.getCenter();
+            var zoom = this.mapRef.getZoom();
             props.onLocationChange({
                 zoom: zoom,
                 latitud: center.lat(),

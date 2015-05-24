@@ -2,6 +2,7 @@ var React = require('react');
 var GoogleMap = require('./google-map');
 var NavIcon = require('./navicon');
 var VenueItem = require('./venue-item');
+var VenueMarker = require('./google-marker');
 // Mixins
 var SidebarBase = require('../mixins/side-bar');
 
@@ -15,7 +16,8 @@ var Landing = React.createClass({
             width: "calc(100% - " + 555 +"px)",
             left: 555,
             height: 'calc(100% - ' +  0 + 'px)',
-            top: 0
+            top: 0,
+            venues: []
         }
     },
     displayVenueBar: function(){
@@ -40,8 +42,30 @@ var Landing = React.createClass({
             top: topValue
         });
     },
+    getMap: function () {
+        return this.refs.map.mapRef;
+    },
+    componentDidMount: function(){
+        this.setState({
+            venues: [{sample: "hey"},{sample: "dude"},{sample: "here"}]
+        });
+    },
+    shouldComponentUpdate: function(nextProps, nextState){
+        var current = this.state;
+        if(current.width !== nextState.width || current.venues.length !== nextState.venues.length){
+            return true;
+        }else{
+            return false;
+        }
+    },
     render: function(){
+        var map,
+            venuesSideBar, 
+            venuesMarkers;
         var state = this.state;
+        var venues = state.venues
+        var cachedLength =  venues.length
+        var length = cachedLength;
         var dimensionMap = {
             width: state.width,
             left: state.left,
@@ -51,10 +75,20 @@ var Landing = React.createClass({
             MozTtransition: 'all 0.5s ease',
             transition: 'all 0.5s ease'
         };
+        if (length !== 0) {
+            map = this.getMap();
+            venuesMarkers = new Array(length);
+            venuesSideBar = new Array(length);
+            while (length--) {
+                venue = venues[length];
+                venuesMarkers[length] = <VenueMarker map={map} latitud={19.370520} longitud={-99.176186} />;
+            }
+        }
         return(
             <div style={{height: '100%', width: '100%'}}>
+                {venuesMarkers}
                 <GoogleMap latitud={Number(this.state.latitud)} longitud={Number(this.state.longitud)}
-                zoom={[Number(this.state.zoom), 5, 21]} style={dimensionMap} ref='map'>
+                zoom={[Number(this.state.zoom), 1, 21]} style={dimensionMap} ref='map'>
                 </GoogleMap>
                 <VenueBar side={'left'} width={'555'} show={this.state.venueVisible} top={0} display={this.displayVenueBar}/>
             </div>

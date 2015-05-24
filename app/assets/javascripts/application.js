@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+var Greeter = require('./components/venue-songifier');
+Greeter.sayHello('Visitor');
+Greeter.sayGoodbye('Visitor');

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # Spotify callback route
   get '/auth/spotify/callback', to: 'users#spotify'
 
+  # Router for associating data
+  post '/place' => 'users#place'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

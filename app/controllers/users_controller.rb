@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include ApplicationHelper
+
   def spotify
     # Logic for creating user
     sp_user = RSpotify::User.new(auth_hash)
@@ -12,6 +14,16 @@ class UsersController < ApplicationController
     session[:user_id] = user.id
 
     redirect_to root_path
+  end
+
+  def place
+    location_id = params[:location]
+    unless Location.where(id: location_id).empty?
+      current_user.update(location_id: location_id)
+      render nothing: true, status: 200
+    else
+      render nothing: true, status: 400
+    end
   end
 
   protected

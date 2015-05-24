@@ -1,5 +1,6 @@
 var React = require('react');
 var _ = require('lodash');
+var MapUtils = require('../utilities/map-utils');
 
 var GoogleMap = React.createClass({
     getDefaultProps: function() {
@@ -41,7 +42,7 @@ var GoogleMap = React.createClass({
             addListener,
             mapOptions = {
                 center: new google.maps.LatLng(lat, lon),
-                //styles: MapUtils.styles,
+                styles: MapUtils.styles,
                 disableDefaultUI: true
             },
             zoomDiv = document.createElement('div'),

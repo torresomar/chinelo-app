@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require utilities/images
 var React = require('react');
 var Routes = {
     '': function() {

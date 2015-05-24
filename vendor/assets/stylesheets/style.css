@@ -3786,8 +3786,6 @@ ul.bullets li a:hover {
 }
 
 body {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
 }
 
 .page-fade-out {
@@ -3842,7 +3840,6 @@ body.map-fullscreen #map {
 
 .map-canvas {
   position: relative;
-  overflow: hidden;
 }
 .map-canvas.list-width-10 .items-list {
   width: 10%;
@@ -3942,7 +3939,7 @@ body.map-fullscreen #map {
 }
 .map-canvas .results.list li .item .wrapper {
   display: table-cell;
-  padding: 20px;
+  padding: 18px;
   vertical-align: middle;
   text-align: left;
 }

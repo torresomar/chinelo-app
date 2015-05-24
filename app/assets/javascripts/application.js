@@ -16,7 +16,7 @@
 var React = require('react');
 var Routes = {
     '': function() {
-        var Landing = require('./components/venue_songifier');
+        var Landing = require('./components/venue-songifier');
         React.render(
                 React.createElement(Landing),
                 document.getElementById('landing-container')

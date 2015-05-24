@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require utilities/images
+//= require jquery.mCustomScrollbar.concat.min
 var React = require('react');
 var Routes = {
     '': function() {

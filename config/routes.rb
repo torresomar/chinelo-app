@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  get 'externals/modal_multichoice'
+  get 'externals/navigation'
+  get 'externals/searchbar'
+  root 'pages#index'
+  get 'navigation' => 'externals#navigation', as: :navigation
+  get 'modal' => 'externals#modal', as: :modal
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

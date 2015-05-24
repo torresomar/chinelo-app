@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   # Router for associating data
   post '/place' => 'users#place'
+  post 'songs/:id/associate', to: 'songs#associate'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

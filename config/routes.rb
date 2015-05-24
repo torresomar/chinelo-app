@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   root 'pages#index'
   get 'navigation' => 'externals#navigation', as: :navigation
   get 'modal' => 'externals#modal', as: :modal
+
+  # Spotify callback route
+  get '/auth/spotify/callback', to: 'users#spotify'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -43,7 +43,10 @@ var GoogleMap = React.createClass({
             mapOptions = {
                 center: new google.maps.LatLng(lat, lon),
                 styles: MapUtils.styles,
-                disableDefaultUI: true
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                    position: google.maps.ControlPosition.BOTTOM_CENTER
+                }
             },
             zoomDiv = document.createElement('div'),
             zoomControls = null;

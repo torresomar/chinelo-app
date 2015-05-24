@@ -26,7 +26,6 @@ class SongsController < ApplicationController
     if current_user.songs.map(&:id).include? song_id.to_i
       render json: 'Song already associated', status: 400
     else
-      location.songs << song
       current_user.songs << song
       render nothing: true, status: 200
     end

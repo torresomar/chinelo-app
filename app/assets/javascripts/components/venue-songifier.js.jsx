@@ -2,6 +2,7 @@ var React = require('react');
 var GoogleMap = require('./google-map');
 var NavIcon = require('./navicon');
 var VenueItem = require('./venue-item');
+var _ = require('lodash');
 var VenueMarker = require('./google-marker');
 // Mixins
 var SidebarBase = require('../mixins/side-bar');
@@ -81,7 +82,7 @@ var Landing = React.createClass({
             venuesSideBar = new Array(length);
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker map={map} latitud={19.370520} longitud={-99.176186} />;
+                venuesMarkers[length] = <VenueMarker map={map} latitud={length+19.370520} longitud={-99.176186} text={length}/>;
             }
         }
         return(

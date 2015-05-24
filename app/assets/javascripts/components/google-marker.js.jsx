@@ -39,18 +39,17 @@ var Marker = React.createClass({
             closeBoxURL: IMAGES['close'],
             infoBoxClearance: new google.maps.Size(1, 1)
         };
-        this.drawInfoBox(infoboxContent);
+        this.drawInfoBox(infoboxContent,props);
         this.infobox = new InfoBox(this.infoboxOptions);
         var marker = this.marker;
         var infobox = this.infobox;
-        console.log(this.infobox, marker);
         google.maps.event.addListener(marker, 'click', function(){
             console.log(infobox, marker);
             infobox.open(props.map, infobox);
             infobox.setOptions({ boxClass:'fade-in-marker'});
         });
     },
-    drawInfoBox: function(infoboxContent){
+    drawInfoBox: function(infoboxContent, props){
         infoboxContent.innerHTML =
         '<div class="infobox">' +
             '<div class="inner">' +
@@ -65,7 +64,7 @@ var Marker = React.createClass({
                     '<a href="' + "#" +  '" class="description">' +
                         '<div class="meta">' +
                             '<div class="type">' + "Sample" +  '</div>' +
-                            '<h2>' + "Hey this is so coool"  +  '</h2>' +
+                            '<h2>' + props.text  +  '</h2>' +
                             '<figure>' + "This is the location" +  '</figure>' +
                             '<i class="fa fa-angle-right"></i>' +
                         '</div>' +

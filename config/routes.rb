@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :songs
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get 'externals/modal_multichoice'

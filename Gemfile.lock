@@ -148,6 +148,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    pg (0.18.2)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     rack (1.6.1)
@@ -245,6 +246,7 @@ DEPENDENCIES
   dotenv-rails
   jbuilder (~> 2.0)
   jquery-rails
+  pg
   rails (= 4.2.0)
   rspotify
   sass-rails (~> 5.0)

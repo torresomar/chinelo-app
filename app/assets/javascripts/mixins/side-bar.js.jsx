@@ -29,9 +29,9 @@ var SidebarBase = {
             top: props.top,
             left: isLeft ? this.calcSide(props.width) : undefined,
             right: isLeft ? undefined : this.calcSide(props.width),
-            WebkitTransition: 'all 0.3s ease',
-            MozTtransition: 'all 0.3s ease',
-            transition: 'all 0.3s ease'
+            WebkitTransition: 'all 0.5s ease',
+            MozTtransition: 'all 0.5s ease',
+            transition: 'all 0.5s ease'
         };
     }
 };

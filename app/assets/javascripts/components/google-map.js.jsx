@@ -8,8 +8,8 @@ var GoogleMap = React.createClass({
         var navbarHeight = 0;
         return {
             style: {
-                width: 'calc(100% - 200px)',
-                left: '200px',
+                width: 'calc(100% - 250px)',
+                left: '250px',
                 height: 'calc(100% - ' + top_value + 'px)', 
                 top: navbarHeight
             }

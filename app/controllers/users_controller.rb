@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def spotify
     # Logic for creating user
     sp_user = RSpotify::User.new(auth_hash)
-    
+
     user = User.where(uid: sp_user.id,
                       email: sp_user.email,
                       provider: auth_hash[:provider]).first_or_create

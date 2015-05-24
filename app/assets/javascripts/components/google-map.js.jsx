@@ -2,6 +2,18 @@ var React = require('react');
 var _ = require('lodash');
 
 var GoogleMap = React.createClass({
+    getDefaultProps: function() {
+        var top_value = 0;
+        var navbarHeight = 0;
+        return {
+            style: {
+                width: 'calc(100% - 200px)',
+                left: '200px',
+                height: 'calc(100% - ' + top_value + 'px)', 
+                top: navbarHeight
+            }
+        };
+    },
     getZoomObject: function() {
         var zoom = this.props.zoom;
         if (!_.isArray(zoom)) {
@@ -29,7 +41,7 @@ var GoogleMap = React.createClass({
             addListener,
             mapOptions = {
                 center: new google.maps.LatLng(lat, lon),
-                styles: MapUtils.styles,
+                //styles: MapUtils.styles,
                 disableDefaultUI: true
             },
             zoomDiv = document.createElement('div'),
@@ -99,6 +111,7 @@ var GoogleMap = React.createClass({
         this.mapRef.setCenter(new google.maps.LatLng(this.props.latitud, this.props.longitud));
     },
     render: function() {
+        console.log(this.props);
         return <div style={this.props.style}></div>;
     }
 });

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524172045) do
+ActiveRecord::Schema.define(version: 20150524194440) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 20150524172045) do
     t.integer  "location_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "uid"
+    t.string   "provider"
   end
 
   add_index "users", ["location_id"], name: "index_users_on_location_id"

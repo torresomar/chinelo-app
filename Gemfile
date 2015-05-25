@@ -65,3 +65,6 @@ gem 'rails_12factor', group: :production
 gem 'puma'
 
 gem 'browserify-rails', '~> 0.9.1'
+
+# Fancy style for active admin
+gem 'flattened_active_admin'

@@ -1797,13 +1797,6 @@ ul.bullets li a:hover {
   -moz-transition: 1s;
   -webkit-transition: 1s;
   transition: 1s;
-  background: -moz-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, transparent), color-stop(100%, rgba(0, 0, 0, 0.8)));
-  background: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-  background: -o-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-  background: -ms-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 );
   width: 100%;
   height: 45px;
   display: block;

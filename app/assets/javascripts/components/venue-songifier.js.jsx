@@ -23,7 +23,8 @@ var Landing = React.createClass({
             left: 555,
             height: 'calc(100% - ' +  0 + 'px)',
             top: 0,
-            venues: []
+            venues: [],
+            selectedVenue: null
         }
     },
     displayVenueBar: function(){
@@ -46,6 +47,11 @@ var Landing = React.createClass({
             left: left,
             height: 'calc(100% - ' + topValue + 'px)',
             top: topValue
+        },function(){
+            var map = this.getMap();
+            setTimeout(function(){
+                google.maps.event.trigger(map, 'resize');
+            }, 500)
         });
     },
     getMap: function () {
@@ -79,10 +85,14 @@ var Landing = React.createClass({
     getLatestMarker: function(){
         return this.latestMarker;
     },
+    getMarker: function(d){
+        return d;
+    },
     render: function(){
         var map,
             venuesSideBar, 
-            venuesMarkers;
+            venuesMarkers,
+            clusterMarkers;
         var state = this.state;
         var venues = state.venues
         var cachedLength =  venues.length
@@ -100,11 +110,19 @@ var Landing = React.createClass({
             map = this.getMap();
             venuesMarkers = new Array(length);
             venuesSideBar = new Array(length);
+            var clusterStyles = [
+                {
+                    url: IMAGES['cluster'],
+                    height: 34,
+                    width: 34
+                }
+            ];
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker}/>;
-                venuesSideBar[length] = <VenueItem {...venue}/>
+                venuesMarkers[length] = <VenueMarker map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} getMarker={this.getMarker}/>;
+                venuesSideBar[length] = <VenueItem key={venue.id} {...venue}/>
             }
+            //var markerCluster = new MarkerClusterer(map, newMarkers, { styles: clusterStyles });
         }
         return(
             <div style={{height: '100%', width: '100%'}}>
@@ -124,6 +142,7 @@ var VenueBar = React.createClass({
     mixins: [SidebarBase],
     render: function(){
         var children = this.props.children;
+        console.log(children);
         return(
             <div className="venue-sidebar map-canvas" style={this.baseStyles()}>
                 <div className="inner" style={{height:'100%',overflow:'hidden'}}>

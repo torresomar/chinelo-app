@@ -68,3 +68,6 @@ gem 'browserify-rails', '~> 0.9.1'
 
 # Fancy style for active admin
 gem 'flattened_active_admin'
+
+# Charts
+gem 'chartkick'

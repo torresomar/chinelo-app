@@ -58,6 +58,10 @@ var Marker = React.createClass({
             infobox.setOptions({ boxClass:'fade-in-marker'});
             markerContent.className = 'marker-active marker-loaded';
         });
+        google.maps.event.addListener(marker.infobox, 'closeclick', function(){
+            marker.content.className = 'marker-loaded';
+            marker.infobox.setOptions({ boxClass:'fade-out-marker' });
+        });
     },
     drawInfoBox: function(infoboxContent, props){
         infoboxContent.innerHTML =

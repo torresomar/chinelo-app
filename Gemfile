@@ -47,7 +47,7 @@ end
 gem 'rspotify'
 
 # Store environment variables in .env file
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails'
 
 # User management
 gem 'devise'

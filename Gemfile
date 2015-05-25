@@ -74,3 +74,6 @@ gem 'chartkick'
 
 # Disable assets logging in development
 gem 'quiet_assets', group: :development
+
+# Use pry as rails console
+gem 'pry-rails'

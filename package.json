@@ -1,6 +1,6 @@
 {
     "name": "chinelo-app",
-    "devDependencies" : {
+    "dependencies" : {
         "browserify": "~9.0.8",
         "browserify-incremental": "^3.0.0",
         "react": "~> 0.13.0",

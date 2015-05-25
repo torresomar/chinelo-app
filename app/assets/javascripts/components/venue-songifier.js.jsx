@@ -48,7 +48,7 @@ var Landing = React.createClass({
     },
     componentDidMount: function(){
         this.setState({
-            venues: [{sample: "hey"},{sample: "dude"},{sample: "here"}]
+            venues: [{sample: "hey"},{sample: "dude"},{sample: "here"},{sample: "hey"},{sample: "dude"},{sample: "here"},{sample: "hey"},{sample: "dude"},{sample: "here"}]
         });
     },
     shouldComponentUpdate: function(nextProps, nextState){
@@ -83,6 +83,9 @@ var Landing = React.createClass({
             while (length--) {
                 venue = venues[length];
                 venuesMarkers[length] = <VenueMarker map={map} latitud={length+19.370520} longitud={-99.176186} text={length}/>;
+                venuesSideBar[length] = <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
+                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
+                            price={590}/>
             }
         }
         return(
@@ -91,7 +94,9 @@ var Landing = React.createClass({
                 <GoogleMap latitud={Number(this.state.latitud)} longitud={Number(this.state.longitud)}
                 zoom={[Number(this.state.zoom), 1, 21]} style={dimensionMap} ref='map'>
                 </GoogleMap>
-                <VenueBar side={'left'} width={'555'} show={this.state.venueVisible} top={0} display={this.displayVenueBar}/>
+                <VenueBar side={'left'} width={'555'} show={this.state.venueVisible} top={0} display={this.displayVenueBar}>
+                {venuesSideBar}
+                </VenueBar>
             </div>
             )
     }
@@ -100,36 +105,12 @@ var Landing = React.createClass({
 var VenueBar = React.createClass({
     mixins: [SidebarBase],
     render: function(){
+        var children = this.props.children;
         return(
             <div className="venue-sidebar map-canvas" style={this.baseStyles()}>
                 <div className="inner" style={{height:'100%',overflow:'hidden'}}>
                     <ul className="results list mCustomScrollbar" data-mcs-theme="dark" style={{listStyle: 'none', height:'calc(100% - 0px)'}}>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://cdn.djoybeat.com/wp-content/uploads/2013/02/50e5a51bb3fc4b327e000123_el-plaza-condesa-mu-ohierro-esrawe-studio_fc_0703.jpg"}
-                            name={"El Plaza Condesa"}
-                            address={"Juan Escutia 4, Cuauhtémoc, Condesa, 06140 Ciudad De Mexico, D.F."}
-                            price={400}/>
-                        <VenueItem image={"https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/c0.159.851.315/p851x315/10525855_747980745241301_3343636875650654563_n.jpg?oh=399e58d8472be99fb4d24c88689b48d9&oe=558DF571&__gda__=1438479318_9a35b49b7b55ea1765bcd3362868f276"} name={"Foro Indie Rocks"}
-                            address={"Calle Zacatecas 39 Cuauhtémoc, Roma Norte, Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://cdn.djoybeat.com/wp-content/uploads/2013/02/50e5a51bb3fc4b327e000123_el-plaza-condesa-mu-ohierro-esrawe-studio_fc_0703.jpg"}
-                            name={"El Plaza Condesa"}
-                            address={"Juan Escutia 4, Cuauhtémoc, Condesa, 06140 Ciudad De Mexico, D.F."}
-                            price={400}/>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
+                        {children}
                     </ul>
                 </div>
                 <NavIcon styling={{position: 'absolute',right: '-64px',top: 'calc(50% - 55px)',background: '#2A2A2A',padding: '30px 17px'}} 

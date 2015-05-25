@@ -52,7 +52,7 @@ var Landing = React.createClass({
         return this.refs.map.mapRef;
     },
     componentDidMount: function(){
-        this.latestInfoBox = null;
+        this.latestMarker = null;
         $.ajax({
             url: this.props.url,
             dataType: 'json',
@@ -73,11 +73,11 @@ var Landing = React.createClass({
             return false;
         }
     },
-    setLatestInfobox: function(d){
-        this.latestInfoBox = d;
+    setLatestMarker: function(d){
+        this.latestMarker = d;
     },
-    getLatestInfoBox: function(){
-        return this.latestInfoBox;
+    getLatestMarker: function(){
+        return this.latestMarker;
     },
     render: function(){
         var map,
@@ -102,7 +102,7 @@ var Landing = React.createClass({
             venuesSideBar = new Array(length);
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker map={map} {...venue} setLatest={this.setLatestInfobox} getLatest={this.getLatestInfoBox}/>;
+                venuesMarkers[length] = <VenueMarker map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker}/>;
                 venuesSideBar[length] = <VenueItem {...venue}/>
             }
         }

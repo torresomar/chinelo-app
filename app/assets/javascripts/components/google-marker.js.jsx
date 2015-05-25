@@ -40,18 +40,23 @@ var Marker = React.createClass({
             infoBoxClearance: new google.maps.Size(1, 1)
         };
         this.drawInfoBox(infoboxContent,props);
-        this.infobox = new InfoBox(this.infoboxOptions);
-        this.infobox._venueId = props.id;
+        this.marker.infobox = new InfoBox(this.infoboxOptions);
+        var infobox = this.marker.infobox;
+        infobox._venueId = props.id;
+        infobox._venueMarker = this.marker;
         var marker = this.marker;
-        var infobox = this.infobox;
         google.maps.event.addListener(marker, 'click', function(){
             var latest = props.getLatest();
-            if(latest !== null && infobox._venueId !== latest._venueId){
-               latest.close(); 
+            if(latest !== null && marker.infobox._venueId !== latest.infobox._venueId){
+                latest.infobox.close(); 
+                latest.setZIndex(99);
+                latest.content.className = 'marker-loaded';
             }
-            props.setLatest(infobox); 
+            props.setLatest(marker); 
+            infobox._venueMarker.setZIndex(100);
             infobox.open(props.map, infobox);
             infobox.setOptions({ boxClass:'fade-in-marker'});
+            markerContent.className = 'marker-active marker-loaded';
         });
     },
     drawInfoBox: function(infoboxContent, props){

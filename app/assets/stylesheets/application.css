@@ -10,7 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+ *= require chinelo/venue-songifier
  *= require bootstrap.min
  *= require bootstrap-select.min
  *= require jquery.mCustomScrollbar

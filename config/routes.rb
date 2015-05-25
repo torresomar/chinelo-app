@@ -4,13 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  get 'externals/modal_multichoice'
-  get 'externals/navigation'
-  get 'externals/searchbar'
   root 'pages#index'
-  get 'navigation' => 'externals#navigation', as: :navigation
-  get 'modal' => 'externals#modal', as: :modal
-
   # Spotify callback route
   get '/auth/spotify/callback', to: 'users#spotify'
 

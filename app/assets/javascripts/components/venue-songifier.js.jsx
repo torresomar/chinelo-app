@@ -52,6 +52,7 @@ var Landing = React.createClass({
         return this.refs.map.mapRef;
     },
     componentDidMount: function(){
+        this.latestInfoBox = null;
         $.ajax({
             url: this.props.url,
             dataType: 'json',
@@ -71,6 +72,12 @@ var Landing = React.createClass({
         }else{
             return false;
         }
+    },
+    setLatestInfobox: function(d){
+        this.latestInfoBox = d;
+    },
+    getLatestInfoBox: function(){
+        return this.latestInfoBox;
     },
     render: function(){
         var map,
@@ -95,10 +102,8 @@ var Landing = React.createClass({
             venuesSideBar = new Array(length);
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker map={map} latitud={length+19.370520} longitud={-99.176186} text={length}/>;
-                venuesSideBar[length] = <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                                        address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                                        price={590}/>
+                venuesMarkers[length] = <VenueMarker map={map} {...venue} setLatest={this.setLatestInfobox} getLatest={this.getLatestInfoBox}/>;
+                venuesSideBar[length] = <VenueItem {...venue}/>
             }
         }
         return(

@@ -13,19 +13,19 @@ var VenueItem = React.createClass({
     },
     render: function(){
         return(
-            <li>
+            <li className="venue-list-item">
                 <div className="item" id="1">
                     <a href="#" className="image loaded">
                         <div className="inner">
-                            <img src={this.props.image} className="mCS_img_loaded" style={{width:'100%',height:'100%'}}/>
+                            <img src={this.props.imageurl} className="mCS_img_loaded" style={{width:'100%',height:'100%'}}/>
                         </div>
                     </a>
                     <div className="wrapper">
                         <a href="#" id="1">
-                            <h3>{this.props.name}</h3>
+                            <h3>{this.props.building}</h3>
                         </a>
                         <figure>{this.props.address}</figure>
-                        <div className="price">${this.props.price}</div>
+                        <div className="price">$4000</div>
                         <div className="info">
                             <div className="type">
                                 <i><img src={IMAGES['umbrella']} className="mCS_img_loaded"/>2</i>

@@ -19,7 +19,7 @@ var Marker = React.createClass({
             '</div>' +
         '</div>';
         this.marker = new RichMarker({
-            position: new google.maps.LatLng(props.latitud, props.longitud),
+            position: new google.maps.LatLng(props.latitude, props.longitude),
             map: props.map,
             draggable: false,
             content: markerContent,
@@ -28,7 +28,7 @@ var Marker = React.createClass({
         var infoboxContent = document.createElement("div");
         this.infoboxOptions = {
             content: infoboxContent,
-            position: new google.maps.LatLng(props.latitud, props.longitud),
+            position: new google.maps.LatLng(props.latitude, props.longitude),
             disableAutoPan: false,
             pixelOffset: new google.maps.Size(-18, -42),
             zIndex: null,
@@ -41,10 +41,15 @@ var Marker = React.createClass({
         };
         this.drawInfoBox(infoboxContent,props);
         this.infobox = new InfoBox(this.infoboxOptions);
+        this.infobox._venueId = props.id;
         var marker = this.marker;
         var infobox = this.infobox;
         google.maps.event.addListener(marker, 'click', function(){
-            console.log(infobox, marker);
+            var latest = props.getLatest();
+            if(latest !== null && infobox._venueId !== latest._venueId){
+               latest.close(); 
+            }
+            props.setLatest(infobox); 
             infobox.open(props.map, infobox);
             infobox.setOptions({ boxClass:'fade-in-marker'});
         });
@@ -63,13 +68,13 @@ var Marker = React.createClass({
                     '</div>' +
                     '<a href="' + "#" +  '" class="description">' +
                         '<div class="meta">' +
-                            '<div class="type">' + "Sample" +  '</div>' +
-                            '<h2>' + props.text  +  '</h2>' +
-                            '<figure>' + "This is the location" +  '</figure>' +
+                            '<div class="type">' + props.created_at +  '</div>' +
+                            '<h2>' + props.building +  '</h2>' +
+                            '<figure>' + "" +  '</figure>' +
                             '<i class="fa fa-angle-right"></i>' +
                         '</div>' +
                     '</a>' +
-                    '<img src="' + IMAGES['metropolitan'] +  '">' +
+                    '<img src="' + props.imageurl +  '">' +
                 '</div>' +
             '</div>' +
         '</div>';

@@ -71,3 +71,6 @@ gem 'flattened_active_admin'
 
 # Charts
 gem 'chartkick'
+
+# Disable assets logging in development
+gem 'quiet_assets', group: :development

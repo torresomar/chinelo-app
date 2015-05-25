@@ -10,11 +10,11 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require bootstrap
+ *= require_tree .
+ *= require bootstrap.min
  *= require bootstrap-select.min
- *= require owl.carousel
  *= require jquery.mCustomScrollbar
- *= require style
  *= require user.style
+ *= require style
  *= require_self
  */

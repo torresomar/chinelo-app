@@ -63,3 +63,5 @@ gem 'rails_12factor', group: :production
 
 # Use puma as a web server
 gem 'puma'
+
+gem 'browserify-rails', '~> 0.9.1'

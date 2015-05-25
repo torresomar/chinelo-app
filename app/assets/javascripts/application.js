@@ -14,16 +14,22 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require before.load
-//= require jquery-migrate-1.2.1.min
-//= require bootstrap.min
-//= require smoothscroll
-//= require bootstrap-select.min
-//= require jquery.hotkeys
-//= require jquery.nouislider.all.min
+//= require utilities/images
 //= require jquery.mCustomScrollbar.concat.min
 //= require infobox
-//= require richmarker-compiled
-//= require markerclusterer
-//= require custom
-//= require maps
+//= require richmarker-compiled.js
+//= require markerclusterer.js
+var React = require('react');
+var Routes = {
+    '': function() {
+        var Landing = require('./components/venue-songifier');
+        React.render(
+                React.createElement(Landing),
+                document.getElementById('landing-container')
+            );
+    }
+}
+$(document).on('ready', function(){
+    var base_path = document.location.pathname.split("/")[1].toString();
+    Routes[base_path]();
+});

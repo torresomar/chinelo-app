@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get 'playlist' => 'pages#songify', as: :songify
   # Router for associating data
   post '/place' => 'users#place'
-  post 'songs/:id/associate', to: 'songs#associate'
+  post   'songs/:id/associate', to: 'songs#associate'
+  delete 'songs/:id/associate', to: 'songs#dissasociate'
 
   # Get song metadata
   get 'songs/:id/data', to: 'songs#data'

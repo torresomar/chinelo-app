@@ -33,6 +33,17 @@ class SongsController < ApplicationController
     end
   end
 
+  def dissasociate
+    songs = current_user.songs
+    target = params[:id]
+    if songs.map(&:id).include? target
+      current_user.songs.delete(target)
+      render json: {}, status: 200
+    else
+      render json: 'Track not associated to user', status: 404
+    end
+  end
+
   def data
     songq = Song.where(params[:id])
 

@@ -32,4 +32,15 @@ class SongsController < ApplicationController
       render nothing: true, status: 200
     end
   end
+
+  def data
+    songq = Song.where(params[:id])
+
+    render nothing: true, status: 404 and return if songq.empty?
+    song = songq.first
+
+    track = song.as_track
+    render json: {preview: track.preview_url,
+                  uri: track.uri}, status: 200
+  end
 end

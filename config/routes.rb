@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   post '/place' => 'users#place'
   post 'songs/:id/associate', to: 'songs#associate'
 
+  # Get song metadata
+  get 'songs/:id/data', to: 'songs#data'
+
   # Methods for playlisting
   post 'playlist' => 'playlists#create'
 

@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     location_id = params[:location]
     unless Location.where(id: location_id).empty?
       current_user.update(location_id: location_id)
-      render nothing: true, status: 200
+      render json: {}, status: 200
     else
       render nothing: true, status: 400
     end

@@ -20,8 +20,21 @@ var VenueItem = React.createClass({
     },
     setUserLocation: function(){
         var props = this.props;
-        window.location.href = 'playlist';
-        console.log(props); 
+        $.ajax({
+            url: 'place',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: { location: props.id } ,
+            success: function(data) {
+                document.body.style.opacity = "0.5";
+                window.location.href = 'playlist';
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log("Error");
+                console.log(xhr,status,err);
+            }.bind(this)
+        });
     },
     render: function(){
         return(

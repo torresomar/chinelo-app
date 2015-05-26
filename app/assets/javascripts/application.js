@@ -33,6 +33,13 @@ var Routes = {
                 React.createElement(PlayListCreator),
                 document.getElementById('playlist-creator-container')
             );
+    },
+    'authenticate' : function(){
+        var AuthenticateComponent = require('./components/authenticate-component');
+        React.render(
+                React.createElement(AuthenticateComponent),
+                document.getElementById('authenticate-container')
+            );
     }
 }
 $(document).on('ready page:load', function(){

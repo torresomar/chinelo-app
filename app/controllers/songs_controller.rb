@@ -4,7 +4,7 @@ class SongsController < ApplicationController
 
   def index
     @songs ||= Song.all
-    render json: @songs.to_json(only: [:id, :uri, :name])
+    render json: @songs
   end
 
   def show

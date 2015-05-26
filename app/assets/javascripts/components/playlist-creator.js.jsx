@@ -28,7 +28,6 @@ var VenueTopBar = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                console.log(data);
                 if(data.hasOwnProperty('building')){
                     this.setState({
                         building: data.building,

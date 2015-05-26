@@ -13,7 +13,7 @@ html,body{
 body{
   opacity: 0;
 }
-#landing-container, #playlist-creator-container{
+#landing-container, #playlist-creator-container, #authenticate-container{
   height:100%;
 }
 // Change to watch in slow motion
@@ -189,4 +189,10 @@ $content-bg : #E7E6DD;
   /* Required to make elements draggable in old WebKit */
   -khtml-user-drag: element;
   -webkit-user-drag: element;
+}
+.btn-login{
+  @include transition(all, 0.5s, ease-in-out);
+  &:hover{
+    background: #3BC865;
+  }
 }

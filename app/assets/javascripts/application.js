@@ -38,7 +38,7 @@ var Routes = {
         var AuthenticateComponent = require('./components/authenticate-component');
         React.render(
                 React.createElement(AuthenticateComponent),
-                document.getElementById(authenticate-container)
+                document.getElementById('authenticate-container')
             );
     }
 }

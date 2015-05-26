@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   post 'playlist' => 'playlists#create'
   get  'preview' => 'playlists#current'
 
+  # User data
+  get 'location' => 'users#location'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

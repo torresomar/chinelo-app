@@ -113,7 +113,7 @@ var InteractionContainer = React.createClass({
     render: function(){
         return(
             <div style={{width: '100%', height:'calc(100% - 59px)'}}>
-                <VenueArtistDisplay/>
+                <VenueArtistDisplay previewUrl='https://p.scdn.co/mp3-preview/0f97bd2f2141d7b672a30c114af8c47719acd9e9' />
                 <ArtistPlaylist songs={this.state.artistSongs} handleDragStart={this.handleDragStart} />
                 <UserPlayList handleDrop={this.handleDrop} songs={this.state.playListSongs}/>
             </div>
@@ -220,23 +220,9 @@ var VenueArtistDisplay = React.createClass({
                     left:'calc(50% - 250px)',
                     borderRadius: '500%'
                 }}/>
-                <div style={{height:'60px',width: '100%',background:'#2F2F2F', bottom: '0', left: '0', position: 'absolute'}}>
-                    <div style={{width:'60px',height:'100%',float:'left', background:'#FF3C27'}}>
-                        <p style={{fontSize: '40px', lineHeight: '65px',textAlign: 'center',color: '#222'}}>
-                            <span id="play-btn">
-                                <i className="fa fa-play"></i>
-                            </span>
-                        </p>
-                    </div>
-                    <div style={{width:'calc(100% - 60px - 100px)',height:'100%',float:'left', background:'#2F2F2F', padding: '10px'}}>
-                        <h5 style={{color:'#fff', margin: '0'}}>
-                            Mi verdad (a dueto con Shakira)
-                            <small> Maná</small>
-                        </h5>
-                        <div style={{width: '100%', borderRadius: '20px', background: '#222', height: '10px', marginTop: '10px'}}>
-                        </div>
-                    </div>
-                </div>
+                <audio controls style={{width:'100%', position: 'absolute', bottom: 0, left: 0}}>
+                    <source src={this.props.previewUrl} type="audio/mp3" />
+                </audio>
             </div>
             )
     }

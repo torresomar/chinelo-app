@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524225348) do
+ActiveRecord::Schema.define(version: 20150526211557) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -60,9 +60,12 @@ ActiveRecord::Schema.define(version: 20150524225348) do
     t.string   "uri"
     t.string   "artist"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "sid"
+    t.string   "large_image"
+    t.string   "small_image"
+    t.string   "preview"
   end
 
   create_table "songs_users", id: false, force: :cascade do |t|

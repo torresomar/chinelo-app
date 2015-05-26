@@ -4,8 +4,10 @@ class PagesController < ApplicationController
   def authenticate
   end
   def index
+    @user = current_user
   end
   def songify
+    @user = current_user
   end
   private
   def user_is_logged?

@@ -8,7 +8,7 @@ var PlayListCreator = React.createClass({
     render: function(){
         return(
             <div style={{height: '100%', width: '100%', background: '#222'}}>
-                <VenueTopBar/>
+                <VenueTopBar url={'locations'}/>
                 <InteractionContainer url={'songs'}/>
             </div>
             )
@@ -16,12 +16,34 @@ var PlayListCreator = React.createClass({
 });
 
 var VenueTopBar = React.createClass({
+    getInitialState: function(){
+        return{
+            building: 'Resolving building name...',
+            address: 'Resolving address...'
+        }
+    },
+    componentDidMount: function(){
+        $.ajax({
+            url: this.props.url + '/' + __venueid__,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({
+                    building: data.building,
+                    address: data.address
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(xhr,status,err);
+            }.bind(this)
+        });
+    },
     render: function(){
         return(
             <div style={{height:'59px',width:'100%', position: 'relative', background: '#222',zIndex: '2'}}>
                 <h1 style={{background:'#ff513f', color: '#fff', padding: '20px', display: 'inline-block', width:'75%'}}>
-                    Palacio de los Deportes
-                    <small style={{color:'#E0E0E0'}}> Avenida Del Conscripto 311 Miguel Hidalgo Lomas de Sotelo 11200 Ciudad de México, D.F </small>
+                    {this.state.building}
+                    <small style={{color:'#E0E0E0'}}> {this.state.address}</small>
                 </h1>
                 <h1 style={{background:'#FF3C27', color: '#fff', padding: '20px', display: 'inline-block', width:'25%'}}>
                     <a href="/" style={{color:'#fff'}}> Change Location</a>

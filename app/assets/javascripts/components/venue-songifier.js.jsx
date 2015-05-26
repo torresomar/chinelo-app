@@ -154,7 +154,7 @@ var VenueBar = React.createClass({
         return(
             <div className="venue-sidebar map-canvas" style={this.baseStyles()}>
                 <div className="inner" style={{height:'100%',overflow:'hidden'}}>
-                    <img src="http://clubdefanstodomana.com/_cftm2015/wp-content/uploads/2015/02/banner_cama_incendiada-720x340.jpg" style={{width: "100%", height: "262px"}} />
+                    <img src={IMAGES['sidebar']}  style={{width: "100%", height: "262px"}} />
                     <header style={{padding: '20px 20px 0 20px', height: '38px'}}>
                         <h2 style={{margin: '0'}} >Selecciona el lugar de tu evento</h2>
                     </header>

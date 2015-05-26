@@ -28,6 +28,7 @@ var VenueTopBar = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
+                console.log(data);
                 if(data.hasOwnProperty('building')){
                     this.setState({
                         building: data.building,
@@ -122,8 +123,19 @@ var InteractionContainer = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                this.setState({
-                    artistSongs: data
+                $.ajax({
+                    url: 'preview',
+                    dataType: 'json',
+                    cache: false,
+                    success: function(songs) {
+                        this.setState({
+                            artistSongs: data,
+                            playListSongs: songs
+                        });
+                    }.bind(this),
+                    error: function(xhr, status, err) {
+                        console.log(xhr,status,err);
+                    }.bind(this)
                 });
             }.bind(this),
             error: function(xhr, status, err) {
@@ -147,10 +159,8 @@ var UserPlayList = React.createClass({
             borderWidth: 1
         }
     },
-    componentDidUpdate:function(){
-        $("#playListContainer").mCustomScrollbar({
-            axis:"y" // horizontal scrollbar
-        });
+    componentDidMount:function(){
+
     },
     handleDragEnter: function(e) {
         this.setState({ borderWidth: 2 });

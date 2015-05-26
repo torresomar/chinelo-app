@@ -136,8 +136,8 @@ var Landing = React.createClass({
 
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker key={venue.id} map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} pushMarker={this.pushMarker} setAsLocation={this.setUserLocation}/>;
-                venuesSideBar[length] = <VenueItem key={venue.id} {...venue}  setAsLocation={this.setUserLocation} map={map}/>
+                venuesMarkers[length] = <VenueMarker key={venue.id} map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} pushMarker={this.pushMarker}/>;
+                venuesSideBar[length] = <VenueItem key={venue.id} {...venue} map={map}/>
             }
         }
         return(

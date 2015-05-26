@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
   def song_count
     songs.size
   end
+
+  def tracks
+    songs.map(&:as_track)
+  end
 end

@@ -18,6 +18,11 @@ var VenueItem = React.createClass({
         map.panTo(latLng); //Make map global
         map.setZoom(16);
     },
+    setUserLocation: function(){
+        var props = this.props;
+        window.location.href = 'playlist';
+        console.log(props); 
+    },
     render: function(){
         return(
             <li className="venue-list-item">
@@ -32,7 +37,7 @@ var VenueItem = React.createClass({
                             <h3>{this.props.building}</h3>
                         </a>
                         <figure style={{height:'75px'}}>{this.props.address}</figure>
-                        <div onClick={this.props.setAsLocation} className="price" style={{width:'100%'}}>SET MY LOCATION</div>
+                        <a onClick={this.setUserLocation} className="price" style={{width:'100%'}}>SET MY LOCATION</a>
                     </div>
                 </div>
             </li>

@@ -8,8 +8,7 @@ var PlayListCreator = React.createClass({
         return(
             <div style={{height: '100%', width: '100%', background: '#222'}}>
                 <VenueTopBar/>
-                <VenueArtistDisplay/>
-                <ArtistPlaylist url='songs'/>
+                <InteractionContainer/>
             </div>
             )
     }
@@ -19,9 +18,12 @@ var VenueTopBar = React.createClass({
     render: function(){
         return(
             <div style={{height:'59px',width:'100%', position: 'relative', background: '#222',zIndex: '2'}}>
-                <h1 style={{background:'#ff513f', color: '#fff', padding: '20px'}}>
+                <h1 style={{background:'#ff513f', color: '#fff', padding: '20px', display: 'inline-block', width:'75%'}}>
                     Palacio de los Deportes
                     <small style={{color:'#E0E0E0'}}> Avenida Del Conscripto 311 Miguel Hidalgo Lomas de Sotelo 11200 Ciudad de México, D.F </small>
+                </h1>
+                <h1 style={{background:'#FF3C27', color: '#fff', padding: '20px', display: 'inline-block', width:'25%'}}>
+                    <a href="/" style={{color:'#fff'}}> Change Location</a>
                 </h1>
                 <div style={{position:'absolute',width: '100px', height: '40px', background: '#fff', bottom: '-40px', left: '10px'}}>
                     <h3 style={{textAlign:'center', margin:'0',lineHeight:'40px'}}> JUN 15 </h3>
@@ -37,10 +39,29 @@ var VenueTopBar = React.createClass({
     }
 });
 
+var InteractionContainer = React.createClass({
+    render: function(){
+        return(
+            <div style={{width: '100%', height:'calc(100% - 59px)'}}>
+                <VenueArtistDisplay/>
+                <ArtistPlaylist url='songs'/>
+                <UserPlayList/>
+            </div>
+            )
+    }
+});
+var UserPlayList = React.createClass({
+    render: function(){
+        return(
+            <div style={{width: '25%',height: '100%', float: 'left', background: '#2F2F2F'}}>
+            </div>
+            )
+    }
+});
 var VenueArtistDisplay = React.createClass({
     render: function(){
         return(
-            <div style={{width: '50%',height: 'calc(100% - 59px)', float: 'left', position: 'relative'}}>
+            <div style={{width: '50%',height: '100%', float: 'left', position: 'relative'}}>
                 <img src="https://scontent-lax1-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/11017670_10155291356625188_1245432389474863937_n.jpg?oh=a0ee4be0f9479c5d7f36205a27750061&oe=55C0B629" style={{width:'100%', height:'100%', position: 'absolute', top: '0', left: '0'}}/>
                 <img src="http://ecx.images-amazon.com/images/I/91k0SfKvlLL._SL1500_.jpg" style={{width:'500px', height:'auto', position: 'absolute',
                     top:'calc(50% - 250px)',
@@ -111,7 +132,7 @@ var ArtistPlaylist = React.createClass({
             }
         }
         return(
-            <div style={{width: '25%',height: 'calc(100% - 59px)', float: 'left'}}>
+            <div style={{width: '25%',height: '100%', float: 'left'}}>
                 <div id='header-artist-playlist' style={{height: '75px',padding: '0px 20px'}}>
                     <h2 style={{color:'#fff',margin:'0',lineHeight:'75px'}}> Select your favorite songs </h2>
                 </div>

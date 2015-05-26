@@ -50,7 +50,7 @@ var InteractionContainer = React.createClass({
     handleDrop: function(e) {
         e.target.style.borderWidth = "1px";
         e.stopPropagation();
-        var products = this.props.products,
+        var songs = this.state.artistSongs,
         item = null,
         itemId = e.dataTransfer.getData('text/plain');
         for (var i = 0; i < products.length; i++) {
@@ -61,6 +61,7 @@ var InteractionContainer = React.createClass({
         this.addItemToCart(item);
     },
     handleDragStart: function(e) {
+        console.log(e);
         var target = e.target;
         e.dataTransfer.effectAllowed = 'copy';
         e.dataTransfer.setData('text/plain', target.dataset.item);
@@ -84,7 +85,7 @@ var InteractionContainer = React.createClass({
         return(
             <div style={{width: '100%', height:'calc(100% - 59px)'}}>
                 <VenueArtistDisplay/>
-                <ArtistPlaylist songs={this.state.artistSongs} />
+                <ArtistPlaylist songs={this.state.artistSongs} handleDragStart={this.handleDragStart} />
                 <UserPlayList handleDrop={this.handleDrop}/>
             </div>
             )
@@ -125,7 +126,7 @@ var ArtistSong = React.createClass({
     render: function(){
         var props = this.props;
         return (
-            <div className='artist-song' style={{width: '100%', height: '50px', marginBottom: '5px'}}>
+            <div className='artist-song' style={{width: '100%', height: '50px', marginBottom: '5px'}} onDragStart={this.props.handleDragStart}>
                 <div style={{width:'50px',height:'50px', float: 'left'}}>
                     <img src={props.albumImage} className='img-responsive' />
                 </div>

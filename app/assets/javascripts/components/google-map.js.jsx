@@ -95,7 +95,6 @@ var GoogleMap = React.createClass({
         this.mapRef.setCenter(new google.maps.LatLng(this.props.latitud, this.props.longitud));
     },
     render: function() {
-        console.log(this.props);
         return <div style={this.props.style}></div>;
     }
 });

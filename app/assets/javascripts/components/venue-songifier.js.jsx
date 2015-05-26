@@ -101,6 +101,9 @@ var Landing = React.createClass({
         var map = this.getMap();
         var markerCluster = new MarkerClusterer(map, markers , { styles: clusterStyles });
     },
+    setUserLocation: function(){
+
+    },
     render: function(){
         var map,
             venuesSideBar, 
@@ -126,7 +129,7 @@ var Landing = React.createClass({
 
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} pushMarker={this.pushMarker}/>;
+                venuesMarkers[length] = <VenueMarker key={venue.id} map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} pushMarker={this.pushMarker}/>;
                 venuesSideBar[length] = <VenueItem key={venue.id} {...venue}/>
             }
         }
@@ -148,11 +151,14 @@ var VenueBar = React.createClass({
     mixins: [SidebarBase],
     render: function(){
         var children = this.props.children;
-        console.log(children);
         return(
             <div className="venue-sidebar map-canvas" style={this.baseStyles()}>
                 <div className="inner" style={{height:'100%',overflow:'hidden'}}>
-                    <ul className="results list mCustomScrollbar" data-mcs-theme="dark" style={{listStyle: 'none', height:'calc(100% - 0px)'}}>
+                    <img src="http://clubdefanstodomana.com/_cftm2015/wp-content/uploads/2015/02/banner_cama_incendiada-720x340.jpg" style={{width: "100%", height: "262px"}} />
+                    <header style={{padding: '20px 20px 0 20px', height: '38px'}}>
+                        <h2 style={{margin: '0'}} >Selecciona el lugar de tu evento</h2>
+                    </header>
+                    <ul className="results list mCustomScrollbar" data-mcs-theme="dark" data-mcs-scrollinertia="10000"  style={{listStyle: 'none', height:'calc(100% - 300px)',  padding: '20px 0 20px 20px'}}>
                         {children}
                     </ul>
                 </div>

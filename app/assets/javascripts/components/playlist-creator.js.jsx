@@ -74,7 +74,6 @@ var InteractionContainer = React.createClass({
         var state = this.state;
         var playListSongs = state.playListSongs;
         var repeated = _.find(playListSongs, {'id': +song.id});
-        console.log(repeated);
         if(typeof repeated === 'undefined'){
             playListSongs.push(song);
         }else{
@@ -224,7 +223,7 @@ var VenueArtistDisplay = React.createClass({
                 <div style={{height:'60px',width: '100%',background:'#2F2F2F', bottom: '0', left: '0', position: 'absolute'}}>
                     <div style={{width:'60px',height:'100%',float:'left', background:'#FF3C27'}}>
                         <p style={{fontSize: '40px', lineHeight: '65px',textAlign: 'center',color: '#222'}}>
-                            <span >
+                            <span id="play-btn">
                                 <i className="fa fa-play"></i>
                             </span>
                         </p>
@@ -280,9 +279,10 @@ var ArtistPlaylist = React.createClass({
             var songs = props.songs;
             while (length--) {
                 song = songs[length];
-                songsComponents[length] = <ArtistSong key={song.id} {...song} drag={props.handleDragStart}/>
+                songsComponents[length] = <ArtistSong key={song.id} {...song} drag={props.handleDragStart} />
             }
         }
+
         return(
             <div style={{width: '25%',height: '100%', float: 'left'}}>
                 <div id='header-artist-playlist' style={{height: '75px',padding: '0px 20px'}}>

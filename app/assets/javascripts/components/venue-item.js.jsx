@@ -11,36 +11,33 @@ var VenueItem = React.createClass({
             address: ""
         }
     },
+    panToMarker: function(){
+        var props = this.props;
+        var latLng = new google.maps.LatLng(props.latitude, props.longitude); //Makes a latlng
+        var map = this.props.map;
+        map.panTo(latLng); //Make map global
+        map.setZoom(16);
+    },
+    setUserLocation: function(){
+        var props = this.props;
+        window.location.href = 'playlist';
+        console.log(props); 
+    },
     render: function(){
         return(
-            <li>
+            <li className="venue-list-item">
                 <div className="item" id="1">
-                    <a href="#" className="image loaded">
+                    <a href="#" onClick={this.panToMarker} className="image loaded">
                         <div className="inner">
-                            <img src={this.props.image} className="mCS_img_loaded" style={{width:'100%',height:'100%'}}/>
+                            <img src={this.props.imageurl} className="mCS_img_loaded" style={{width:'100%',height:'100%'}}/>
                         </div>
                     </a>
                     <div className="wrapper">
                         <a href="#" id="1">
-                            <h3>{this.props.name}</h3>
+                            <h3>{this.props.building}</h3>
                         </a>
-                        <figure>{this.props.address}</figure>
-                        <div className="price">${this.props.price}</div>
-                        <div className="info">
-                            <div className="type">
-                                <i><img src={IMAGES['umbrella']} className="mCS_img_loaded"/>2</i>
-                                <span>Apartment</span>
-                            </div>
-                            <div className="rating" data-rating="4">
-                                <span className="stars">
-                                    <i className="fa fa-star s1 active" data-score="1"></i>
-                                    <i className="fa fa-star s2 active" data-score="2"></i>
-                                    <i className="fa fa-star s3 active" data-score="3"></i>
-                                    <i className="fa fa-star s4 active" data-score="4"></i>
-                                    <i className="fa fa-star s5" data-score="5"></i>
-                                </span>
-                            </div>
-                        </div>
+                        <figure style={{height:'75px'}}>{this.props.address}</figure>
+                        <a onClick={this.setUserLocation} className="price" style={{width:'100%'}}>SET MY LOCATION</a>
                     </div>
                 </div>
             </li>

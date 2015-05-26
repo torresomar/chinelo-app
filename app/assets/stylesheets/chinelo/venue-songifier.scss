@@ -1,8 +1,19 @@
+@mixin transition($transition-property, $transition-time, $method) {
+  -webkit-transition: $transition-property $transition-time $method;
+  -moz-transition: $transition-property $transition-time $method;
+  -ms-transition: $transition-property $transition-time $method;
+  -o-transition: $transition-property $transition-time $method;
+  transition: $transition-property $transition-time $method;
+}
 html,body{
+  @include transition(all, 1s, ease-in-out);
   height:100%;
   margin: 0;
 }
-#landing-container{
+body{
+  opacity: 0;
+}
+#landing-container, #playlist-creator-container{
   height:100%;
 }
 // Change to watch in slow motion
@@ -106,4 +117,76 @@ $content-bg : #E7E6DD;
 }
 .open.plus { 
   transform: scale($toggled-size) rotate(45deg) 
+}
+.venue-list-item{
+  @include transition(all, 0.3s, ease-in-out);
+}
+.mCSB_container{
+  @include transition(all, 0.3s, ease-in-out);
+}
+.item{
+  .price{
+    @include transition(all, 0.3s, ease-in-out);
+    &:hover{
+      background-color: #FF6151;
+      cursor: pointer;
+    }
+  }
+}
+.artist-song{
+  cursor: pointer;
+  &:hover{
+    img{
+      cursor: move;
+    }
+    .song-info{
+      background: #373737;
+      border-radius: 2px;
+    }
+  }
+  .song-info{
+    @include transition(all, 0.5s, ease-in-out);
+    padding: 5px;
+  }
+}
+.playlist-song{
+  background: #575757;
+  cursor: pointer;
+  &:hover{
+    img{
+      cursor: move;
+    }
+    .song-info{
+      background: #373737;
+      border-radius: 2px;
+    }
+  }
+  .song-info{
+    @include transition(all, 0.5s, ease-in-out);
+    padding: 5px;
+  }
+}
+.blurred{
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
 }

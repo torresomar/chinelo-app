@@ -8,7 +8,13 @@ var VenueMarker = require('./google-marker');
 var SidebarBase = require('../mixins/side-bar');
 
 var Landing = React.createClass({
+    getDefaultProps: function(){
+        return {
+            url: 'locations'
+        }
+    },
     getInitialState: function(){
+        this.markerClusterArr = [];
         return {
             latitud: 19.271752,
             longitud: -99.161944,
@@ -18,7 +24,8 @@ var Landing = React.createClass({
             left: 555,
             height: 'calc(100% - ' +  0 + 'px)',
             top: 0,
-            venues: []
+            venues: [],
+            selectedVenue: null
         }
     },
     displayVenueBar: function(){
@@ -41,14 +48,29 @@ var Landing = React.createClass({
             left: left,
             height: 'calc(100% - ' + topValue + 'px)',
             top: topValue
+        },function(){
+            var map = this.getMap();
+            setTimeout(function(){
+                google.maps.event.trigger(map, 'resize');
+            }, 500)
         });
     },
     getMap: function () {
         return this.refs.map.mapRef;
     },
     componentDidMount: function(){
-        this.setState({
-            venues: [{sample: "hey"},{sample: "dude"},{sample: "here"}]
+        document.body.style.opacity = "1";
+        this.latestMarker = null;
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({venues: data},this.setClusterConfig);
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(xhr,status,err);
+            }.bind(this)
         });
     },
     shouldComponentUpdate: function(nextProps, nextState){
@@ -59,10 +81,41 @@ var Landing = React.createClass({
             return false;
         }
     },
+    componentDidUpdate: function(){
+        console.log("Did Update");
+    },
+    setLatestMarker: function(d){
+        this.latestMarker = d;
+    },
+    getLatestMarker: function(){
+        return this.latestMarker;
+    },
+    pushMarker: function(marker){
+        this.markerClusterArr.push(marker);
+    },
+    setClusterConfig: function(){
+        var clusterStyles = [
+            {
+                url: IMAGES['cluster'],
+                height: 34,
+                width: 34
+            }
+        ];
+        var markers = this.markerClusterArr;
+        var map = this.getMap();
+        var markerCluster = new MarkerClusterer(map, markers , { styles: clusterStyles });
+    },
+    setUserLocation: function(id_venue){
+        console.log(id_venue);
+        // this.setState({
+        //     selectedVenue: id_venue
+        // }); 
+    },
     render: function(){
         var map,
             venuesSideBar, 
-            venuesMarkers;
+            venuesMarkers,
+            clusterMarkers;
         var state = this.state;
         var venues = state.venues
         var cachedLength =  venues.length
@@ -80,9 +133,11 @@ var Landing = React.createClass({
             map = this.getMap();
             venuesMarkers = new Array(length);
             venuesSideBar = new Array(length);
+
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker map={map} latitud={length+19.370520} longitud={-99.176186} text={length}/>;
+                venuesMarkers[length] = <VenueMarker key={venue.id} map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} pushMarker={this.pushMarker}/>;
+                venuesSideBar[length] = <VenueItem key={venue.id} {...venue} map={map}/>
             }
         }
         return(
@@ -91,7 +146,9 @@ var Landing = React.createClass({
                 <GoogleMap latitud={Number(this.state.latitud)} longitud={Number(this.state.longitud)}
                 zoom={[Number(this.state.zoom), 1, 21]} style={dimensionMap} ref='map'>
                 </GoogleMap>
-                <VenueBar side={'left'} width={'555'} show={this.state.venueVisible} top={0} display={this.displayVenueBar}/>
+                <VenueBar side={'left'} width={'555'} show={this.state.venueVisible} top={0} display={this.displayVenueBar}>
+                    {venuesSideBar}
+                </VenueBar>
             </div>
             )
     }
@@ -100,36 +157,16 @@ var Landing = React.createClass({
 var VenueBar = React.createClass({
     mixins: [SidebarBase],
     render: function(){
+        var children = this.props.children;
         return(
             <div className="venue-sidebar map-canvas" style={this.baseStyles()}>
                 <div className="inner" style={{height:'100%',overflow:'hidden'}}>
-                    <ul className="results list mCustomScrollbar" data-mcs-theme="dark" style={{listStyle: 'none', height:'calc(100% - 0px)'}}>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://cdn.djoybeat.com/wp-content/uploads/2013/02/50e5a51bb3fc4b327e000123_el-plaza-condesa-mu-ohierro-esrawe-studio_fc_0703.jpg"}
-                            name={"El Plaza Condesa"}
-                            address={"Juan Escutia 4, Cuauhtémoc, Condesa, 06140 Ciudad De Mexico, D.F."}
-                            price={400}/>
-                        <VenueItem image={"https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/c0.159.851.315/p851x315/10525855_747980745241301_3343636875650654563_n.jpg?oh=399e58d8472be99fb4d24c88689b48d9&oe=558DF571&__gda__=1438479318_9a35b49b7b55ea1765bcd3362868f276"} name={"Foro Indie Rocks"}
-                            address={"Calle Zacatecas 39 Cuauhtémoc, Roma Norte, Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://cdn.djoybeat.com/wp-content/uploads/2013/02/50e5a51bb3fc4b327e000123_el-plaza-condesa-mu-ohierro-esrawe-studio_fc_0703.jpg"}
-                            name={"El Plaza Condesa"}
-                            address={"Juan Escutia 4, Cuauhtémoc, Condesa, 06140 Ciudad De Mexico, D.F."}
-                            price={400}/>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
-                        <VenueItem image={"http://www.lgmstudio.com/files/gimgs/95_20120513auditoriobb0588.jpg"} name={"Auditorio Blackberry"}
-                            address={"Calle Tlaxcala 160, Cuauhtemoc, Hipódromo Condesa, 06170 Ciudad de México, D.F."}
-                            price={590}/>
+                    <img src={IMAGES['sidebar']}  style={{width: "100%", height: "262px"}} />
+                    <header style={{padding: '20px 20px 0 20px', height: '38px'}}>
+                        <h2 style={{margin: '0'}} >Selecciona el lugar de tu evento</h2>
+                    </header>
+                    <ul className="results list mCustomScrollbar" data-mcs-theme="dark" data-mcs-scrollinertia="10000"  style={{listStyle: 'none', height:'calc(100% - 300px)',  padding: '20px 0 20px 20px'}}>
+                        {children}
                     </ul>
                 </div>
                 <NavIcon styling={{position: 'absolute',right: '-64px',top: 'calc(50% - 55px)',background: '#2A2A2A',padding: '30px 17px'}} 

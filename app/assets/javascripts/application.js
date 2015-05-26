@@ -10,7 +10,6 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require paths
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
@@ -27,9 +26,16 @@ var Routes = {
                 React.createElement(Landing),
                 document.getElementById('landing-container')
             );
+    },
+    'playlist' : function(){
+        var PlayListCreator = require('./components/playlist-creator');
+        React.render(
+                React.createElement(PlayListCreator),
+                document.getElementById('playlist-creator-container')
+            );
     }
 }
-$(document).on('ready', function(){
+$(document).on('ready page:load', function(){
     var base_path = document.location.pathname.split("/")[1].toString();
     Routes[base_path]();
 });

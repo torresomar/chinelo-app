@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def location
     loc = current_user.location
     if loc
-      render json: {id: loc.id}
+      render json: loc
     else
       render json: {}
     end

@@ -80,7 +80,24 @@ var InteractionContainer = React.createClass({
             alert("That Song is already in your playlist");
             return;
         }
-        this.setState({ playListSongs: playListSongs});
+        this.associateSongToUser(+song.id,playListSongs)
+    },
+    associateSongToUser: function(songId,playListSongs){
+        $.ajax({
+            url: 'songs/' + songId + '/associate',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({
+                    playListSongs: playListSongs
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                alert(err);
+                console.log(xhr,status,err);
+            }.bind(this)
+        });
     },
     handleDrop: function(e) {
         e.target.style.borderWidth = "1px";
@@ -146,7 +163,7 @@ var UserPlayList = React.createClass({
     render: function(){
         var style = {
             width: '100%',
-            height: 'calc(100% - 70px)',
+            height: 'calc(100% - 70px - 75px)',
             border: this.state.borderWidth + "px dashed white",
             borderRadius: '5px',
             padding: '20px 20px 20px 20px',
@@ -176,6 +193,11 @@ var UserPlayList = React.createClass({
                     onDrop={this.props.handleDrop}
                     style={style}>
                     {songsComponents}
+                </div>
+                <div style={{height:'75px',padding: '20px 0px 20px 0px'}}>
+                    <button className='btn btn-block' style={{width: '100%'}}>
+                        EXPORT PLAYLIST
+                    </button>
                 </div>
             </div>
             )
@@ -288,7 +310,7 @@ var ArtistPlaylist = React.createClass({
                 <div id='header-artist-playlist' style={{height: '75px',padding: '0px 20px'}}>
                     <h2 style={{color:'#fff',margin:'0',lineHeight:'75px'}}> Select your favorite songs </h2>
                 </div>
-                <div className='mCustomScrollbar' data-mcs-theme='light-thick' style={{height:'calc(100% - 75px)',padding: '20px 0 20px 20px',listStyle: ''}}>
+                <div className='mCustomScrollbar' data-mcs-theme='light-thick' style={{height:'calc(100% - 75px)',padding: '20px 0 20px 20px'}}>
                     {songsComponents}
                 </div>
             </div>

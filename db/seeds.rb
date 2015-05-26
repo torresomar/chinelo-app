@@ -2,7 +2,7 @@
 # with the songs of the specified artist
 
 # ID for the target Artist
-ARTIST_ID = '2DmYtFBKcxb3ajwWWgA576' # Emmanuel
+ARTIST_ID = '7okwEbXzyT2VffBmyQBWLz' # Maná
 
 RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'],
                       ENV['SPOTIFY_CLIENT_SECRET'])

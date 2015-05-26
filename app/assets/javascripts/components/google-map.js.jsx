@@ -68,7 +68,6 @@ var GoogleMap = React.createClass({
         // Add event listener
         if (_.isFunction(props.onLocationChange)) {
             addListener('idle', function() {
-                console.log("----");
                 var center = this.mapRef.getCenter(),
                     zoom = this.mapRef.getZoom();
                 props.onLocationChange({
@@ -89,21 +88,7 @@ var GoogleMap = React.createClass({
         }
     },
     shouldComponentUpdate: function(next_props, next_state) {
-        var abs = Math.abs,
-            lat1 = Number(this.props.latitud),
-            lng1 = Number(this.props.longitud),
-            lat2 = Number(next_props.latitud),
-            lng2 = Number(next_props.longitud),
-            same_position = (abs(lat2 - lat1) / lat1 <= 0.0001) && (abs(lng2 - lng1) / lng1 <= 0.0001);
-        if (this.props.style === undefined) {
-            return !same_position;
-        } else {
-            return this.props.style.width !== next_props.style.width || !same_position;
-        }
-    },
-    componentDidUpdate: function() {
-        this.mapRef.setZoom(this.getZoomObject().zoom);
-        this.mapRef.panTo(new google.maps.LatLng(this.props.latitud, this.props.longitud));
+        return this.props.style.width !== next_props.style.width;
     },
     redraw: function() {
         google.maps.event.trigger(this.mapRef, 'resize');

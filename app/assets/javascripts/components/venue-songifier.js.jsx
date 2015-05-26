@@ -14,6 +14,7 @@ var Landing = React.createClass({
         }
     },
     getInitialState: function(){
+        this.markerClusterArr = [];
         return {
             latitud: 19.271752,
             longitud: -99.161944,
@@ -64,7 +65,7 @@ var Landing = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                this.setState({venues: data});
+                this.setState({venues: data},this.setClusterConfig);
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log(xhr,status,err);
@@ -85,8 +86,20 @@ var Landing = React.createClass({
     getLatestMarker: function(){
         return this.latestMarker;
     },
-    getMarker: function(d){
-        return d;
+    pushMarker: function(marker){
+        this.markerClusterArr.push(marker);
+    },
+    setClusterConfig: function(){
+        var clusterStyles = [
+            {
+                url: IMAGES['cluster'],
+                height: 34,
+                width: 34
+            }
+        ];
+        var markers = this.markerClusterArr;
+        var map = this.getMap();
+        var markerCluster = new MarkerClusterer(map, markers , { styles: clusterStyles });
     },
     render: function(){
         var map,
@@ -110,19 +123,12 @@ var Landing = React.createClass({
             map = this.getMap();
             venuesMarkers = new Array(length);
             venuesSideBar = new Array(length);
-            var clusterStyles = [
-                {
-                    url: IMAGES['cluster'],
-                    height: 34,
-                    width: 34
-                }
-            ];
+
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} getMarker={this.getMarker}/>;
+                venuesMarkers[length] = <VenueMarker map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} pushMarker={this.pushMarker}/>;
                 venuesSideBar[length] = <VenueItem key={venue.id} {...venue}/>
             }
-            //var markerCluster = new MarkerClusterer(map, newMarkers, { styles: clusterStyles });
         }
         return(
             <div style={{height: '100%', width: '100%'}}>

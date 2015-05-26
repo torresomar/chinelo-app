@@ -25,6 +25,7 @@ var Marker = React.createClass({
             content: markerContent,
             flat: true
         });
+        
         var infoboxContent = document.createElement("div");
         this.infoboxOptions = {
             content: infoboxContent,
@@ -45,6 +46,7 @@ var Marker = React.createClass({
         infobox._venueId = props.id;
         infobox._venueMarker = this.marker;
         var marker = this.marker;
+        props.pushMarker(marker);
         google.maps.event.addListener(marker, 'click', function(){
             var latest = props.getLatest();
             if(latest !== null && marker.infobox._venueId !== latest.infobox._venueId){
@@ -89,7 +91,7 @@ var Marker = React.createClass({
         '</div>';
     },
     componentWillReceiveProps : function(next_props) {
-        this.marker.setPosition(new google.maps.LatLng(next_props.latitud, next_props.longitud));
+        this.marker.setPosition(new google.maps.LatLng(next_props.latitude, next_props.longitude));
     },
     render: function(){
         return null;

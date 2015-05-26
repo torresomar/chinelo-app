@@ -28,9 +28,14 @@ var Routes = {
             );
     },
     'playlist' : function(){
+        var PlayListCreator = require('./components/playlist-creator');
+        React.render(
+                React.createElement(PlayListCreator),
+                document.getElementById('playlist-creator-container')
+            );
     }
 }
-$(document).on('ready', function(){
+$(document).on('ready page:load', function(){
     var base_path = document.location.pathname.split("/")[1].toString();
     Routes[base_path]();
 });

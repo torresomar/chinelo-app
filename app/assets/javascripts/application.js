@@ -26,6 +26,8 @@ var Routes = {
                 React.createElement(Landing),
                 document.getElementById('landing-container')
             );
+    },
+    'playlist' : function(){
     }
 }
 $(document).on('ready', function(){

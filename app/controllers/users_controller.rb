@@ -26,6 +26,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def location
+    loc = current_user.location
+    if loc
+      render json: {id: loc.id}
+    else
+      render json: {}
+    end
+  end
+
   protected
 
   def auth_hash

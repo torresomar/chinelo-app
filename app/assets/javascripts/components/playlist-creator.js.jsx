@@ -105,6 +105,12 @@ var UserPlayList = React.createClass({
             borderWidth: 1
         }
     },
+    componentDidUpdate:function(){
+        console.log(this.getDOMNode());
+        $("#playListContainer").mCustomScrollbar({
+            axis:"y" // horizontal scrollbar
+        });
+    },
     handleDragEnter: function(e) {
         this.setState({ borderWidth: 2 });
     },
@@ -122,7 +128,10 @@ var UserPlayList = React.createClass({
             width: '100%',
             height: 'calc(100% - 70px)',
             border: this.state.borderWidth + "px dashed white",
-            borderRadius: '5px'
+            borderRadius: '5px',
+            padding: '20px 20px 20px 20px',
+            overflow: 'hidden',
+            overflowY: 'auto'
         };
         var props = this.props;
         var length = props.songs.length;
@@ -131,7 +140,7 @@ var UserPlayList = React.createClass({
             var songs = props.songs;
             while (length--) {
                 song = songs[length];
-                songsComponents[length] = <ArtistSong key={song.id} {...song} drag={props.handleDragStart}/>
+                songsComponents[length] = <PlayListSong key={song.id} {...song} drag={props.handleDragStart}/>
             }
         }
         return(
@@ -163,12 +172,12 @@ var PlayListSong = React.createClass({
         }
     },
     render: function(){
-
+        var props = this.props;
         return (
-            <div className='playlist-song' style={{width: '100%', height: '80px', marginBottom: '5px'}}>
-                <div className='song-info' style={{width:'calc(100%)',height:'80px'}}>
-                    <div style={{width: '50px', float: 'left'}}>
-                        <img style={{width:'80px',height:'80px'}} src={props.albumImage} className='img-responsive'/>
+            <div className='play-list-song' style={{width: '100%', height: '80px', marginBottom: '5px'}}>
+                <div className='playlist-song' style={{width:'calc(100%)',height:'80px'}}>
+                    <div style={{width: '80px', float: 'left'}}>
+                        <img style={{width:'80px',height:'80px',  borderRadius: '2px 0 0 2px'}} src={props.albumImage} className='img-responsive'/>
                     </div>
                     <div style={{width: 'calc(100% - 80px)', float: 'left', paddingLeft: '5px'}}>
                         <p style={{color:'#fff', margin: '0'}}>{props.name}<small style={{color:'#fff'}}>{' '+props.artist}</small></p>

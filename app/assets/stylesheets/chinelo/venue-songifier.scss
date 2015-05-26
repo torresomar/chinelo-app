@@ -149,6 +149,23 @@ $content-bg : #E7E6DD;
     padding: 5px;
   }
 }
+.playlist-song{
+  background: #575757;
+  cursor: pointer;
+  &:hover{
+    img{
+      cursor: move;
+    }
+    .song-info{
+      background: #373737;
+      border-radius: 2px;
+    }
+  }
+  .song-info{
+    @include transition(all, 0.5s, ease-in-out);
+    padding: 5px;
+  }
+}
 .blurred{
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);

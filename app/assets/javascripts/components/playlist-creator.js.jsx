@@ -8,7 +8,7 @@ var PlayListCreator = React.createClass({
         return(
             <div style={{height: '100%', width: '100%', background: '#222'}}>
                 <VenueTopBar/>
-                <InteractionContainer/>
+                <InteractionContainer url={'songs'}/>
             </div>
             )
     }
@@ -40,12 +40,52 @@ var VenueTopBar = React.createClass({
 });
 
 var InteractionContainer = React.createClass({
+    getInitialState: function(){
+        return{
+            currentSong: null,
+            playListSongs: [],
+            artistSongs: []
+        }
+    },
+    handleDrop: function(e) {
+        e.target.style.borderWidth = "1px";
+        e.stopPropagation();
+        var products = this.props.products,
+        item = null,
+        itemId = e.dataTransfer.getData('text/plain');
+        for (var i = 0; i < products.length; i++) {
+            if (products[i].id == itemId) {
+                item = products[i];
+            }
+        }
+        this.addItemToCart(item);
+    },
+    handleDragStart: function(e) {
+        var target = e.target;
+        e.dataTransfer.effectAllowed = 'copy';
+        e.dataTransfer.setData('text/plain', target.dataset.item);
+    },
+    componentDidMount:function(){
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({
+                    artistSongs: data
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(xhr,status,err);
+            }.bind(this)
+        });
+    },
     render: function(){
         return(
             <div style={{width: '100%', height:'calc(100% - 59px)'}}>
                 <VenueArtistDisplay/>
-                <ArtistPlaylist url='songs'/>
-                <UserPlayList/>
+                <ArtistPlaylist songs={this.state.artistSongs} />
+                <UserPlayList handleDrop={this.handleDrop}/>
             </div>
             )
     }
@@ -100,32 +140,12 @@ var ArtistSong = React.createClass({
 });
 
 var ArtistPlaylist = React.createClass({
-    getInitialState: function(){
-        return {
-            songs: []
-        }
-    },
-    componentDidMount: function(){
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({
-                    songs: data
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log(xhr,status,err);
-            }.bind(this)
-        });
-    },
     render: function(){
         var props = this.props;
-        var length = this.state.songs.length;
+        var length = props.songs.length;
         var songsComponents = new Array(length);
         if (length !== 0) {
-            var songs = this.state.songs;
+            var songs = props.songs;
             while (length--) {
                 song = songs[length];
                 songsComponents[length] = <ArtistSong key={song.id} {...song}/>

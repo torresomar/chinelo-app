@@ -41,6 +41,7 @@ class SongsController < ApplicationController
 
     track = song.as_track
     render json: {preview: track.preview_url,
-                  uri: track.uri}, status: 200
+                  uri: track.uri,
+                  images: track.images}, status: 200
   end
 end

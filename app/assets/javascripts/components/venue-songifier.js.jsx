@@ -105,12 +105,6 @@ var Landing = React.createClass({
         var map = this.getMap();
         var markerCluster = new MarkerClusterer(map, markers , { styles: clusterStyles });
     },
-    setUserLocation: function(id_venue){
-        console.log(id_venue);
-        // this.setState({
-        //     selectedVenue: id_venue
-        // }); 
-    },
     render: function(){
         var map,
             venuesSideBar, 

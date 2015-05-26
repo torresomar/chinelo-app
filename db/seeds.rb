@@ -9,17 +9,26 @@ RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'],
 
 artist = RSpotify::Artist.find(ARTIST_ID)
 
-tracks = artist.albums.flat_map(&:tracks).uniq(&:name)
+albums = artist.albums
 
-tracks.each do |track|
-  Song.create(sid:         track.id,
-              uri:         track.uri,
-              artist:      ARTIST_ID,
-              name:        track.name,
-              preview:     track.preview_url,
-              large_image: track.album.images[0]['url'],
-              small_image: track.album.images[2]['url'])
+albums.each do |album|
+  album.tracks.each do |track|
+    Song.create(sid:         track.id,
+                uri:         track.uri,
+                artist:      ARTIST_ID,
+                name:        track.name,
+                preview:     track.preview_url,
+                large_image: album.images[0]['url'],
+                small_image: album.images[2]['url'])
+  end
 end
+
+data = Song.all.map { |s| [s.id, s.name] }
+require 'set'
+unique_names_ids = Set.new(data.uniq(& proc { |d| d[1] }).map(& proc { |d| d[0] }))
+all_ids = Set.new(Song.all.map(&:id))
+Song.delete(all_ids.difference(unique_names_ids).to_a)
+
 Location.create(latitude: 19.405094,
                 longitude: -99.095420,
                 address: "Av. Viaducto Rio de la Piedad y Rio Churubusco S/N, Iztaclaco, Granjas México, 08400 Ciudad de Mexico, D.F.",

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   # Methods for playlisting
   post 'playlist' => 'playlists#create'
+  get  'preview' => 'playlists#current'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

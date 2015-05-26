@@ -11,13 +11,17 @@ var VenueItem = React.createClass({
             address: ""
         }
     },
+    panToMarker: function(){
+        var props = this.props;
+        var latLng = new google.maps.LatLng(props.latitude, props.longitude); //Makes a latlng
+        var map = this.props.map;
+        map.panTo(latLng); //Make map global
+    },
     render: function(){
-        console.log(this.props);
-        this.props.setAsLocation();
         return(
             <li className="venue-list-item">
                 <div className="item" id="1">
-                    <a href="#" className="image loaded">
+                    <a href="#" onClick={this.panToMarker} className="image loaded">
                         <div className="inner">
                             <img src={this.props.imageurl} className="mCS_img_loaded" style={{width:'100%',height:'100%'}}/>
                         </div>

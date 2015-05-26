@@ -134,12 +134,14 @@ $content-bg : #E7E6DD;
   }
 }
 .artist-song{
-  cursor:pointer;
+  cursor: pointer;
   &:hover{
+    img{
+      cursor: move;
+    }
     .song-info{
       background: #373737;
-      border-top-right-radius: 2px;
-      border-bottom-right-radius: 2px;
+      border-radius: 2px;
     }
   }
   .song-info{
@@ -153,4 +155,21 @@ $content-bg : #E7E6DD;
   -o-filter: blur(5px);
   -ms-filter: blur(5px);
   filter: blur(5px);
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
 }

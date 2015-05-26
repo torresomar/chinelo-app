@@ -25,6 +25,8 @@ class SongsController < ApplicationController
 
     if current_user.songs.map(&:id).include? song_id.to_i
       render json: 'Song already associated', status: 400
+    elsif current_user.song.size >= 10
+      render json: 'Limit for user songs reached', status: 400
     else
       current_user.songs << song
       render nothing: true, status: 200

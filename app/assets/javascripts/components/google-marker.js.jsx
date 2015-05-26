@@ -15,7 +15,6 @@ var Marker = React.createClass({
         markerContent.innerHTML =
         '<div class="map-marker ' + '">' +
             '<div class="icon">' +
-                '<img src="' + IMAGES['emmanuel'] +  '">' +
             '</div>' +
         '</div>';
         this.marker = new RichMarker({

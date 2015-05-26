@@ -4114,7 +4114,7 @@ body.map-fullscreen #map {
   -moz-transition: 0.3s ease-in-out all;
   -webkit-transition: 0.3s ease-in-out all;
   transition: 0.3s ease-in-out all;
-  background-color: #fff;
+  background-color: #ff513f;
   border: 3px solid #ff513f;
   height: 28px;
   left: 4px;

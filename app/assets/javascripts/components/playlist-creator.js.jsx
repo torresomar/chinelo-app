@@ -106,7 +106,6 @@ var UserPlayList = React.createClass({
         }
     },
     componentDidUpdate:function(){
-        console.log(this.getDOMNode());
         $("#playListContainer").mCustomScrollbar({
             axis:"y" // horizontal scrollbar
         });
@@ -182,6 +181,7 @@ var PlayListSong = React.createClass({
                     <div style={{width: 'calc(100% - 80px)', float: 'left', paddingLeft: '5px'}}>
                         <p style={{color:'#fff', margin: '0'}}>{props.name}<small style={{color:'#fff'}}>{' '+props.artist}</small></p>
                         <p style={{color:'#E0E0E0', margin: '0'}}>{props.album}<small style={{color:'#E0E0E0'}}>{' '+props.artist}</small></p>
+                        <p style={{color:'#E0E0E0', margin: '0'}}>{props.uri}</p>
                     </div>
                 </div>
             </div>

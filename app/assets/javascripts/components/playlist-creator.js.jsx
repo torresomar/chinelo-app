@@ -199,6 +199,23 @@ var VenueArtistDisplay = React.createClass({
                     left:'calc(50% - 250px)',
                     borderRadius: '500%'
                 }}/>
+                <div style={{height:'60px',width: '100%',background:'#2F2F2F', bottom: '0', left: '0', position: 'absolute'}}>
+                    <div style={{width:'60px',height:'100%',float:'left', background:'#FF3C27'}}>
+                        <p style={{fontSize: '40px', lineHeight: '65px',textAlign: 'center',color: '#222'}}>
+                            <span >
+                                <i className="fa fa-play"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div style={{width:'calc(100% - 60px - 100px)',height:'100%',float:'left', background:'#2F2F2F', padding: '10px'}}>
+                        <h5 style={{color:'#fff', margin: '0'}}>
+                            Mi verdad (a dueto con Shakira)
+                            <small> Maná</small>
+                        </h5>
+                        <div style={{width: '100%', borderRadius: '20px', background: '#222', height: '10px', marginTop: '10px'}}>
+                        </div>
+                    </div>
+                </div>
             </div>
             )
     }

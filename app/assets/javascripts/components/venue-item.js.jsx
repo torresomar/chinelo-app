@@ -12,6 +12,8 @@ var VenueItem = React.createClass({
         }
     },
     render: function(){
+        console.log(this.props);
+        this.props.setAsLocation();
         return(
             <li className="venue-list-item">
                 <div className="item" id="1">
@@ -25,7 +27,7 @@ var VenueItem = React.createClass({
                             <h3>{this.props.building}</h3>
                         </a>
                         <figure style={{height:'75px'}}>{this.props.address}</figure>
-                        <div className="price" style={{width:'100%'}}>SET MY LOCATION</div>
+                        <div onClick={this.props.setAsLocation} className="price" style={{width:'100%'}}>SET MY LOCATION</div>
                     </div>
                 </div>
             </li>

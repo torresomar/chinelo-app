@@ -80,6 +80,9 @@ var Landing = React.createClass({
             return false;
         }
     },
+    componentDidUpdate: function(){
+        console.log("Did Update");
+    },
     setLatestMarker: function(d){
         this.latestMarker = d;
     },
@@ -101,8 +104,11 @@ var Landing = React.createClass({
         var map = this.getMap();
         var markerCluster = new MarkerClusterer(map, markers , { styles: clusterStyles });
     },
-    setUserLocation: function(){
-
+    setUserLocation: function(id_venue){
+        console.log(id_venue);
+        // this.setState({
+        //     selectedVenue: id_venue
+        // }); 
     },
     render: function(){
         var map,
@@ -129,8 +135,8 @@ var Landing = React.createClass({
 
             while (length--) {
                 venue = venues[length];
-                venuesMarkers[length] = <VenueMarker key={venue.id} map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} pushMarker={this.pushMarker}/>;
-                venuesSideBar[length] = <VenueItem key={venue.id} {...venue}/>
+                venuesMarkers[length] = <VenueMarker key={venue.id} map={map} {...venue} setLatest={this.setLatestMarker} getLatest={this.getLatestMarker} pushMarker={this.pushMarker} setAsLocation={this.setUserLocation}/>;
+                venuesSideBar[length] = <VenueItem key={venue.id} {...venue}  setAsLocation={this.setUserLocation}/>
             }
         }
         return(

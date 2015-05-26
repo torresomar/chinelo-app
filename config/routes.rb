@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # Spotify callback route
   get '/auth/spotify/callback', to: 'users#spotify'
   get 'playlist' => 'pages#songify', as: :songify
+  get 'authenticate' => 'pages#authenticate', as: :authenticate
   # Router for associating data
   post '/place' => 'users#place'
   post 'songs/:id/associate', to: 'songs#associate'

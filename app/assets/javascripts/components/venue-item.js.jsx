@@ -16,6 +16,7 @@ var VenueItem = React.createClass({
         var latLng = new google.maps.LatLng(props.latitude, props.longitude); //Makes a latlng
         var map = this.props.map;
         map.panTo(latLng); //Make map global
+        map.setZoom(16);
     },
     render: function(){
         return(

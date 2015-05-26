@@ -6,8 +6,12 @@
   transition: $transition-property $transition-time $method;
 }
 html,body{
+  @include transition(all, 1s, ease-in-out);
   height:100%;
   margin: 0;
+}
+body{
+  opacity: 0;
 }
 #landing-container{
   height:100%;
@@ -121,7 +125,6 @@ $content-bg : #E7E6DD;
   @include transition(all, 0.3s, ease-in-out);
 }
 .item{
-
   .price{
     @include transition(all, 0.3s, ease-in-out);
     &:hover{

@@ -59,6 +59,7 @@ var Landing = React.createClass({
         return this.refs.map.mapRef;
     },
     componentDidMount: function(){
+        document.body.style.opacity = "1";
         this.latestMarker = null;
         $.ajax({
             url: this.props.url,

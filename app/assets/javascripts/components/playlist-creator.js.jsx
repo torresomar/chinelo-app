@@ -24,14 +24,18 @@ var VenueTopBar = React.createClass({
     },
     componentDidMount: function(){
         $.ajax({
-            url: this.props.url + '/' + __venueid__,
+            url: 'location',
             dataType: 'json',
             cache: false,
             success: function(data) {
-                this.setState({
-                    building: data.building,
-                    address: data.address
-                });
+                if(data.hasOwnProperty('building')){
+                    this.setState({
+                        building: data.building,
+                        address: data.address
+                    });
+                }else{
+                    window.location.href = '/';
+                }
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log(xhr,status,err);

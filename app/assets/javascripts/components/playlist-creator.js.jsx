@@ -70,7 +70,8 @@ var VenueTopBar = React.createClass({
 var InteractionContainer = React.createClass({
     getInitialState: function(){
         return{
-            currentSong: null,
+            previewUrl: 'https://p.scdn.co/mp3-preview/0f97bd2f2141d7b672a30c114af8c47719acd9e9',
+            albumImage: 'https://i.scdn.co/image/e25c2467978e17a2957e5c41875ad828680f7ffa',
             playListSongs: [],
             artistSongs: []
         }
@@ -131,6 +132,12 @@ var InteractionContainer = React.createClass({
         e.dataTransfer.effectAllowed = 'copy';
         e.dataTransfer.setData('text/plain', target.dataset.item);
     },
+    handleClick: function (song) {
+        this.setState({
+            previewUrl: song.preview,
+            albumImage: song.large_image
+        });
+    },
     componentDidMount:function(){
         $.ajax({
             url: this.props.url,
@@ -160,9 +167,9 @@ var InteractionContainer = React.createClass({
     render: function(){
         return(
             <div style={{width: '100%', height:'calc(100% - 59px)'}}>
-                <VenueArtistDisplay previewUrl='https://p.scdn.co/mp3-preview/0f97bd2f2141d7b672a30c114af8c47719acd9e9' />
-                <ArtistPlaylist songs={this.state.artistSongs} handleDragStart={this.handleDragStart} />
-                <UserPlayList handleDrop={this.handleDrop} songs={this.state.playListSongs} removeSong={this.removeSongFromUserPlayList}/>
+                <VenueArtistDisplay previewUrl={this.state.previewUrl} albumImage={this.state.albumImage}/>
+                <ArtistPlaylist songs={this.state.artistSongs} handleDragStart={this.handleDragStart} handleClick={this.handleClick}/>
+                <UserPlayList handleDrop={this.handleDrop} songs={this.state.playListSongs}/>
             </div>
             )
     }
@@ -269,16 +276,25 @@ var PlayListSong = React.createClass({
 });
 
 var VenueArtistDisplay = React.createClass({
+    componentWillReceiveProps: function(new_props) {
+        if (new_props.previewUrl === this.props.previewUrl) {
+            return;
+        }
+        var audio = React.findDOMNode(this.refs.audio);
+        audio.pause();
+        audio.src = new_props.previewUrl;
+        audio.play();
+    },
     render: function(){
         return(
             <div style={{width: '50%',height: '100%', float: 'left', position: 'relative'}}>
                 <img src="https://scontent-lax1-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/11017670_10155291356625188_1245432389474863937_n.jpg?oh=a0ee4be0f9479c5d7f36205a27750061&oe=55C0B629" style={{width:'100%', height:'100%', position: 'absolute', top: '0', left: '0', opacity: '0.2'}}/>
-                <img src="http://ecx.images-amazon.com/images/I/91k0SfKvlLL._SL1500_.jpg" style={{width:'500px', height:'auto', position: 'absolute',
+                <img src={this.props.albumImage} style={{width:'500px', height:'auto', position: 'absolute',
                     top:'calc(50% - 250px)',
                     left:'calc(50% - 250px)',
                     borderRadius: '500%'
                 }}/>
-                <audio controls style={{width:'100%', position: 'absolute', bottom: 0, left: 0}}>
+                <audio ref='audio' controls style={{width:'100%', position: 'absolute', bottom: 0, left: 0}}>
                     <source src={this.props.previewUrl} type="audio/mp3" />
                 </audio>
             </div>
@@ -294,9 +310,12 @@ var ArtistSong = React.createClass({
     },
     render: function(){
         var props = this.props;
+        function clickHandler() {
+            props.click(props);
+        }
         return (
             <div className='artist-song' style={{width: '100%', height: '60px', marginBottom: '5px'}} draggable="true"
-                data-item={props.id} onDragStart={this.props.drag}>
+                data-item={props.id} onDragStart={this.props.drag} onClick={clickHandler}>
                 <div className='song-info' style={{width:'calc(100%)',height:'60px'}}>
                     <div style={{width: '50px', float: 'left'}}>
                         <img style={{width:'50px',height:'50px'}} src={props.small_image} className='img-responsive'/>
@@ -320,7 +339,7 @@ var ArtistPlaylist = React.createClass({
             var songs = props.songs;
             while (length--) {
                 song = songs[length];
-                songsComponents[length] = <ArtistSong key={song.id} {...song} drag={props.handleDragStart} />
+                songsComponents[length] = <ArtistSong key={song.id} {...song} drag={props.handleDragStart} click={props.handleClick}/>
             }
         }
 

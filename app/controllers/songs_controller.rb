@@ -35,7 +35,7 @@ class SongsController < ApplicationController
 
   def dissasociate
     songs = current_user.songs
-    target = params[:id]
+    target = params[:id].to_i
     if songs.map(&:id).include? target
       current_user.songs.delete(target)
       render json: {}, status: 200

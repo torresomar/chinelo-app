@@ -260,7 +260,7 @@ var PlayListSong = React.createClass({
                     </div>
                     <div style={{width: 'calc(100% - 80px)', float: 'left', paddingLeft: '5px'}}>
                         <p style={{color:'#fff', margin: '0'}}>{props.name}<small style={{color:'#fff'}}>{' - '+props.artista}</small></p>
-                        <p style={{color:'#E0E0E0', margin: '0'}}>{props.uri}</p>
+                        <p style={{color:'#E0E0E0', margin: '0'}}>{props.album_name}</p>
                     </div>
                 </div>
             </div>
@@ -303,7 +303,7 @@ var ArtistSong = React.createClass({
                     </div>
                     <div style={{width: 'calc(100% - 50px)', float: 'left', paddingLeft: '5px'}}>
                         <p style={{color:'#fff', margin: '0'}}>{props.name}<small style={{color:'#fff'}}>{' - '+ props.artista}</small></p>
-                        <p style={{color:'#E0E0E0', margin: '0'}}>{props.album}<small style={{color:'#E0E0E0'}}>{' '+props.artist}</small></p>
+                        <p style={{color:'#E0E0E0', margin: '0'}}>{props.album_name}</p>
                     </div>
                 </div>
             </div>

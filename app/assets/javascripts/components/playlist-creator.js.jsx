@@ -158,8 +158,8 @@ var UserPlayList = React.createClass({
             borderWidth: 1
         }
     },
-    componentDidMount:function(){
-
+    exportPlaylist: function(){
+        $.post('playlist');
     },
     handleDragEnter: function(e) {
         this.setState({ borderWidth: 2 });
@@ -208,7 +208,7 @@ var UserPlayList = React.createClass({
                     {songsComponents}
                 </div>
                 <div style={{height:'75px',padding: '20px 0px 20px 0px'}}>
-                    <button className='btn btn-block' style={{width: '100%'}}>
+                    <button className='btn btn-block' style={{width: '100%'}} onClick={this.exportPlaylist}>
                         EXPORT PLAYLIST
                     </button>
                 </div>
@@ -220,10 +220,7 @@ var UserPlayList = React.createClass({
 var PlayListSong = React.createClass({
     getDefaultProps: function(){
         return{
-            artist: 'Mana',
-            duration: '30s',
-            album: 'Cama Incendiada',
-            albumImage: 'http://placehold.it/150'
+            artista: 'Maná',
         }
     },
     render: function(){
@@ -232,11 +229,10 @@ var PlayListSong = React.createClass({
             <div className='play-list-song' style={{width: '100%', height: '80px', marginBottom: '5px'}}>
                 <div className='playlist-song' style={{width:'calc(100%)',height:'80px'}}>
                     <div style={{width: '80px', float: 'left'}}>
-                        <img style={{width:'80px',height:'80px',  borderRadius: '2px 0 0 2px'}} src={props.albumImage} className='img-responsive'/>
+                        <img style={{width:'80px',height:'80px',  borderRadius: '2px 0 0 2px'}} src={props.small_image} className='img-responsive'/>
                     </div>
                     <div style={{width: 'calc(100% - 80px)', float: 'left', paddingLeft: '5px'}}>
-                        <p style={{color:'#fff', margin: '0'}}>{props.name}<small style={{color:'#fff'}}>{' '+props.artist}</small></p>
-                        <p style={{color:'#E0E0E0', margin: '0'}}>{props.album}<small style={{color:'#E0E0E0'}}>{' '+props.artist}</small></p>
+                        <p style={{color:'#fff', margin: '0'}}>{props.name}<small style={{color:'#fff'}}>{' - '+props.artista}</small></p>
                         <p style={{color:'#E0E0E0', margin: '0'}}>{props.uri}</p>
                     </div>
                 </div>
@@ -266,10 +262,7 @@ var VenueArtistDisplay = React.createClass({
 var ArtistSong = React.createClass({
     getDefaultProps: function(){
         return{
-            artist: 'Mana',
-            duration: '30s',
-            album: 'Cama Incendiada',
-            albumImage: 'http://placehold.it/150'
+            artista: 'Maná'
         }
     },
     render: function(){
@@ -279,10 +272,10 @@ var ArtistSong = React.createClass({
                 data-item={props.id} onDragStart={this.props.drag}>
                 <div className='song-info' style={{width:'calc(100%)',height:'60px'}}>
                     <div style={{width: '50px', float: 'left'}}>
-                        <img style={{width:'50px',height:'50px'}} src={props.albumImage} className='img-responsive'/>
+                        <img style={{width:'50px',height:'50px'}} src={props.small_image} className='img-responsive'/>
                     </div>
                     <div style={{width: 'calc(100% - 50px)', float: 'left', paddingLeft: '5px'}}>
-                        <p style={{color:'#fff', margin: '0'}}>{props.name}<small style={{color:'#fff'}}>{' '+props.artist}</small></p>
+                        <p style={{color:'#fff', margin: '0'}}>{props.name}<small style={{color:'#fff'}}>{' - '+ props.artista}</small></p>
                         <p style={{color:'#E0E0E0', margin: '0'}}>{props.album}<small style={{color:'#E0E0E0'}}>{' '+props.artist}</small></p>
                     </div>
                 </div>

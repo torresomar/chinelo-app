@@ -19,7 +19,8 @@ albums.each do |album|
                 name:        track.name,
                 preview:     track.preview_url,
                 large_image: album.images[0]['url'],
-                small_image: album.images[2]['url'])
+                small_image: album.images[2]['url'],
+                album_name:  album.name)
   end
 end
 

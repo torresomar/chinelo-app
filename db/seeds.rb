@@ -30,6 +30,10 @@ unique_names_ids = Set.new(data.uniq(& proc { |d| d[1] }).map(& proc { |d| d[0] 
 all_ids = Set.new(Song.all.map(&:id))
 Song.delete(all_ids.difference(unique_names_ids).to_a)
 
+if AdminUser.count == 0
+  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+end
+
 Location.create(latitude: 19.405094,
                 longitude: -99.095420,
                 address: "Av. Viaducto Rio de la Piedad y Rio Churubusco S/N, Iztaclaco, Granjas México, 08400 Ciudad de Mexico, D.F.",
@@ -39,7 +43,7 @@ Location.create(latitude: 19.405094,
 Location.create(latitude: 19.424764,
                 longitude: -99.194899,
                 address: "Av Paseo de la Reforma 50 Miguel Hidalgo 11580 Ciudad de México, D.F",
-                building: "Foro Sol",
+                building: "Auditorio nacional",
                 imageurl: "https://c3.staticflickr.com/3/2329/2631186552_8b574026ce_b.jpg")
 
 Location.create(latitude: 19.406578,

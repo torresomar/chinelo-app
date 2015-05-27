@@ -1,5 +1,6 @@
 var React = require('react');
 var _ = require('lodash');
+var NavIcon = require('./navicon');
 
 var PlayListCreator = React.createClass({
     componentDidMount: function(){
@@ -86,6 +87,20 @@ var InteractionContainer = React.createClass({
         }
         this.associateSongToUser(+song.id,playListSongs)
     },
+    removeSongFromUserPlayList: function(idSong){
+        var state = this.state;
+        var playListSongs = state.playListSongs;
+        var withoutTarget = playListSongs.filter(function(song) {
+            return song.id !== +idSong;
+        });
+        this.setState({
+            playListSongs: withoutTarget
+        }, function() {
+            $.ajax('/songs/' + idSong + '/associate', {
+                method: 'DELETE'
+            });
+        });
+    },
     associateSongToUser: function(songId,playListSongs){
         $.ajax({
             url: 'songs/' + songId + '/associate',
@@ -147,7 +162,7 @@ var InteractionContainer = React.createClass({
             <div style={{width: '100%', height:'calc(100% - 59px)'}}>
                 <VenueArtistDisplay previewUrl='https://p.scdn.co/mp3-preview/0f97bd2f2141d7b672a30c114af8c47719acd9e9' />
                 <ArtistPlaylist songs={this.state.artistSongs} handleDragStart={this.handleDragStart} />
-                <UserPlayList handleDrop={this.handleDrop} songs={this.state.playListSongs}/>
+                <UserPlayList handleDrop={this.handleDrop} songs={this.state.playListSongs} removeSong={this.removeSongFromUserPlayList}/>
             </div>
             )
     }
@@ -190,7 +205,7 @@ var UserPlayList = React.createClass({
             var songs = props.songs;
             while (length--) {
                 song = songs[length];
-                songsComponents[length] = <PlayListSong key={song.id} {...song} drag={props.handleDragStart}/>
+                songsComponents[length] = <PlayListSong key={song.id} {...song} drag={props.handleDragStart} removeSong={props.removeSong}/>
             }
         }
         return(
@@ -223,10 +238,22 @@ var PlayListSong = React.createClass({
             artista: 'Maná',
         }
     },
+    removeSong: function(){
+        var props = this.props;
+        props.removeSong(props.id);
+    },
     render: function(){
         var props = this.props;
+        console.log(props);
         return (
-            <div className='play-list-song' style={{width: '100%', height: '80px', marginBottom: '5px'}}>
+            <div className='play-list-song' style={{width: '100%', height: '80px', marginBottom: '5px',position: 'relative'}}>
+                <div style={{width:'15px',height: '15px', background: '#FF3C27',position:'absolute',top:0,left:-15}} onClick={this.removeSong}>
+                    <span className='fa fa-minus-circle' style={{color:'#fff',
+                        float: 'right',
+                        marginTop: '1px',
+                        marginRight: '2px'}}>
+                    </span>
+                </div>
                 <div className='playlist-song' style={{width:'calc(100%)',height:'80px'}}>
                     <div style={{width: '80px', float: 'left'}}>
                         <img style={{width:'80px',height:'80px',  borderRadius: '2px 0 0 2px'}} src={props.small_image} className='img-responsive'/>
